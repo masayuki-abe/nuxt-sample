@@ -1,0 +1,25 @@
+@import './_variables';
+@import './_functions';
+@import './_mixin';
+
+
+
+*{
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+}
+
+
+
+//Base
+html{
+  font-size: 62.5%;
+}
+body{
+  background-color: $white;
+  color: $dark;
+  font-size: 1rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+}
