@@ -66,7 +66,7 @@ export default {
   styleResources: {
     scss: [
       '~/assets/css/_variables.scss',
-      '~/assets/css/_function.scss',
+      '~/assets/css/_functions.scss',
       '~/assets/css/_mixin.scss'
     ]
   }

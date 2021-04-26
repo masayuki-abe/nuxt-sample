@@ -1,5 +1,5 @@
 <template>
-  <div class="btn-hamburger">
+  <div class="btn-hamburger" @click="btnMenu">
     <span />
     <span />
     <span />
@@ -8,14 +8,21 @@
 
 <script>
 export default {
-
+  methods: {
+    btnMenu () {
+      this.$emit('btnMenu')
+    }
+  }
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 .btn-hamburger{
   position: absolute;
+  right: 0;
+  top: 50%;
   width: 10%;
+
   span{
     @include dis(inline-block);
 
