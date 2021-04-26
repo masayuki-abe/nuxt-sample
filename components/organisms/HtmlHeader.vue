@@ -28,6 +28,7 @@ import BtnHamburger from '@/components/atoms/buttons/hamburger'
 import NaviList from '@/components/molecules/lists/navilist'
 
 export default {
+  //comment
   components: {
     BtnHamburger,
     NaviList
