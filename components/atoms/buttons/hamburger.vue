@@ -32,13 +32,29 @@ export default {
     width: 100%;
     height: 3px;
     background-color: $dark;
-    transition: margin .2s ease, opacity .1s ease .2s, transform .4s ease .2s;
+    transition: margin .4s ease, opacity .1s ease, transform .4s ease;
 
     &:nth-child(1){
       margin-top: -10px;
     }
     &:nth-child(3){
       margin-top: 10px;
+    }
+  }
+
+  &.active{
+    span{
+      &:nth-child(1){
+        margin: 0;
+        transform: rotate(45deg);
+      }
+      &:nth-child(2){
+        opacity: 0;
+      }
+      &:nth-child(3){
+        margin: 0;
+        transform: rotate(-45deg);
+      }
     }
   }
 }

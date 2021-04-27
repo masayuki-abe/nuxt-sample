@@ -28,7 +28,6 @@ import BtnHamburger from '@/components/atoms/buttons/hamburger'
 import NaviList from '@/components/molecules/lists/navilist'
 
 export default {
-  //comment
   components: {
     BtnHamburger,
     NaviList
@@ -41,6 +40,18 @@ export default {
   methods: {
     toggleMenu () {
       this.gnaviOn = !this.gnaviOn
+    },
+    beforeEnter (el) {
+      el.style.height = '0'
+    },
+    enter (el) {
+      el.style.height = el.scrollHeight + 'px'
+    },
+    beforeLeave (el) {
+      el.style.height = el.scrollHeight + 'px'
+    },
+    leave (el) {
+      el.style.height = '0'
     }
   }
 }
@@ -59,6 +70,17 @@ export default {
       padding: .5em 0;
       line-height: 1;
     }
+  }
+
+  .gnavi{
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 900;
+    width: 100%;
+    background-color: $white;
+    transition: height .6s ease;
   }
 }
 </style>
