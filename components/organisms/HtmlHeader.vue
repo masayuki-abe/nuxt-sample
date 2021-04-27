@@ -14,7 +14,7 @@
       @leave="leave"
     >
       <nav
-        v-show="gnaviOn"
+        v-if="gnaviOn || !isMobile"
         class="gnavi"
       >
         <NaviList />
@@ -34,8 +34,22 @@ export default {
   },
   data () {
     return {
-      gnaviOn: false
+      gnaviOn: false,
+      wWidth: 1025
     }
+  },
+  computed: {
+    isMobile () {
+      return this.wWidth < 1024
+    }
+  },
+  mounted () {
+    this.wWidth = window.innerWidth
+    this.$nextTick(() => {
+      window.addEventListener('resize', () => {
+        this.wWidth = window.innerWidth
+      })
+    })
   },
   methods: {
     toggleMenu () {
@@ -61,6 +75,7 @@ export default {
 #header{
   position: relative;
   padding: per(20, $tab);
+  border-bottom: 1px $dark solid;
 
   .header__inner{
     position: relative;
@@ -79,8 +94,31 @@ export default {
     top: 100%;
     z-index: 900;
     width: 100%;
-    background-color: $white;
     transition: height .6s ease;
   }
+}
+
+@include lap() {
+#header{
+  @include dflex(sb, c);
+
+  position: relative;
+  padding: per(20, $lap);
+
+  .header__inner{
+    width: auto;
+
+    h1{
+      padding: 0;
+    }
+  }
+
+  .gnavi{
+    overflow: visible;
+    position: static;
+    width: auto;
+    transition: none;
+  }
+}
 }
 </style>

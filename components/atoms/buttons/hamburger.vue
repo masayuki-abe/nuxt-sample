@@ -58,4 +58,16 @@ export default {
     }
   }
 }
+
+@include tab() {
+.btn-hamburger{
+  width: 5%;
+}
+}
+
+@include lap() {
+.btn-hamburger{
+  @include dis(none);
+}
+}
 </style>
