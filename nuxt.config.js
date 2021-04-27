@@ -20,13 +20,13 @@ export default {
     link: [
       { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
       { rel: 'preconnect', href: 'https://fonts.gstatic.com' },
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Noto+Sans+JP:wght@300;700&display=swap' },
+      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/css2?family=Cormorant+Garamond&family=Noto+Sans+JP:wght@300;700&display=swap' }
     ]
   },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
-    { src: '~/assets/css/common.scss' },
+    { src: '~/assets/css/common.scss' }
   ],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
@@ -46,7 +46,7 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/style-resources',
+    '@nuxtjs/style-resources'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -64,8 +64,10 @@ export default {
     }
   },
   styleResources: {
-    scss: ['~/assets/css/_variable.scss'],
-    scss: ['~/assets/css/_function.scss'],
-    scss: ['~/assets/css/_mixin.scss'],
-  },
+    scss: [
+      '~/assets/css/_variables.scss',
+      '~/assets/css/_functions.scss',
+      '~/assets/css/_mixin.scss'
+    ]
+  }
 }
