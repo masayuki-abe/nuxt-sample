@@ -3,10 +3,16 @@
     <p>FrontPage</p>
 
     <div class="modal-window">
-      <button @click="openModal">
-        Open the 'Modal Window'
-      </button>
-      <Modal v-if="modalFlag">
+      <BtnText
+        btn-style="modal"
+        link-text="Open the 'Modal Window'."
+        color="white"
+        @open-modal="openModal"
+      />
+      <Modal
+        v-if="modalFlag"
+        @close-modal="closeModal"
+      >
         <dl>
           <dt>夢野久作</dt>
           <dd>ドグラ・マグラ</dd>
@@ -38,9 +44,11 @@
 </template>
 
 <script>
+import BtnText from '@/components/atoms/buttons/TextBtn'
 import Modal from '@/components/atoms/etc/Modal'
 export default {
   components: {
+    BtnText,
     Modal
   },
   data () {
@@ -58,3 +66,23 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+.modal-window{
+  width: 90%;
+  margin: 0 auto;
+
+  .btn__text{
+    @include fontSet(32, 32, 100, $tab);
+
+    padding: .5em 2.5em .5em 1em;
+    background-color: $darkGray;
+    border-radius: 10px;
+    color: $white;
+
+    .icon{
+      border: 2px $white solid;
+    }
+  }
+}
+</style>

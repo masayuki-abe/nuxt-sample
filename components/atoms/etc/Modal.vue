@@ -1,14 +1,33 @@
 <template>
   <transition name="modal" appear>
-    <div class="modal__base">
+    <div
+      class="modal__base"
+      @click="closeModal"
+    >
       <div class="modal__wrap">
         <div class="modal__content">
           <slot />
         </div>
+        <IcnTime />
       </div>
     </div>
   </transition>
 </template>
+
+<script>
+import IcnTime from '@/components/atoms/icons/TimeIcn'
+
+export default {
+  components: {
+    IcnTime
+  },
+  methods: {
+    closeModal () {
+      this.$emit('close-modal')
+    }
+  }
+}
+</script>
 
 <style lang="scss">
 .modal{
@@ -29,6 +48,13 @@
     width: 90%;
     height: 80%;
     transform: translate(-50%, -50%);
+
+    .icon.time{
+      right: 0;
+      top: -1.5em;
+      width: 2em;
+      height: 2em;
+    }
   }
 
   &__content{
@@ -38,7 +64,7 @@
     width: 100%;
     height: 100%;
     padding: 1em;
-    background-color: $white;
+    background-color: rgba($white, 0.9);
     border: 2px $black solid;
   }
 }
@@ -54,7 +80,7 @@
     }
   }
   &-leave-active{
-    transition: opacity 0.6s ease 0.4s;
+    transition: opacity 0.6s ease 0.1s;
   }
 
   &-enter,

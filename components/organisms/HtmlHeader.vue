@@ -17,20 +17,20 @@
         v-if="gnaviOn || !isMobile"
         class="gnavi"
       >
-        <NaviList />
+        <LstNavi />
       </nav>
     </transition>
   </header>
 </template>
 
 <script>
-import BtnHamburger from '@/components/atoms/buttons/hamburger'
-import NaviList from '@/components/molecules/lists/navilist'
+import BtnHamburger from '@/components/atoms/buttons/Hamburger'
+import LstNavi from '@/components/molecules/lists/NaviList'
 
 export default {
   components: {
     BtnHamburger,
-    NaviList
+    LstNavi
   },
   data () {
     return {
