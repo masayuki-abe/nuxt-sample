@@ -62,4 +62,15 @@ export default {
 .modal{
   position: relative;
 }
+
+@include pc{
+.modal{
+  transition: opacity 0.4s ease;
+
+  &:hover{
+    opacity: 0.7;
+    cursor: pointer;
+  }
+}
+}
 </style>

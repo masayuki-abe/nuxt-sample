@@ -35,9 +35,6 @@
         <p>その三方の壁に、黒い鉄格子と、鉄網で二重に張り詰めた、大きな縦長い磨硝子の窓が一つ宛、都合三つ取付けられている、トテも要心堅固に構えた部屋の感じである。</p>
         <p>窓の無い側の壁の附け根には、やはり岩乗な鉄の寝台が一個、入口の方向を枕にして横たえてあるが、その上の真白な寝具が、キチンと敷き展べたままになっているところを見ると、まだ誰も寝たことがないらしい。</p>
         <p>……おかしいぞ…………。</p>
-        <button @click="closeModal">
-          Close
-        </button>
       </Modal>
     </div><!--/ modal window-->
   </main>
@@ -69,6 +66,8 @@ export default {
 
 <style lang="scss" scoped>
 .modal-window{
+  @include fontSet(32, 48, 100, $tab);
+
   width: 90%;
   margin: 0 auto;
 
@@ -84,5 +83,70 @@ export default {
       border: 2px $white solid;
     }
   }
+
+  dl{
+    margin-bottom: 1em;
+    padding: 1em;
+    background-color: $gray;
+
+    dt{
+      font-style: italic;
+    }
+    dd{
+      @include fontSet(40, 48, 200, $tab);
+      padding-bottom: .5em;
+      font-weight: bold;
+
+      &.intro{
+        @include fontSet(32, 48, 100, $tab);
+        padding-bottom: 0;
+        font-weight: normal;
+      }
+    }
+  }
+  p{
+    padding-left: -1em;
+    text-indent: 1em;
+  }
+}
+
+@include tab() {
+.modal-window{
+  @include fontSet(20, 36, 100, $tab);
+
+  .btn__text{
+    @include fontSet(20, 20, 100, $tab);
+  }
+
+  dl{
+    dd{
+      @include fontSet(24, 36, 200, $tab);
+
+      &.intro{
+        @include fontSet(20, 32, 100, $tab);
+      }
+    }
+  }
+}
+}
+
+@include lap() {
+.modal-window{
+  @include fontSet(16, 24, 100, $tab);
+
+  .btn__text{
+    @include fontSet(16, 16, 100, $tab);
+  }
+
+  dl{
+    dd{
+      @include fontSet(18, 24, 200, $tab);
+
+      &.intro{
+        @include fontSet(16, 24, 100, $tab);
+      }
+    }
+  }
+}
 }
 </style>

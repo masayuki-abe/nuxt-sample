@@ -32,4 +32,15 @@ span{
     transform: rotate(45deg);
   }
 }
+
+@include lap() {
+span{
+  transition: opacity 0.4s ease;
+
+  &:hover{
+    opacity: 0.7;
+    cursor: pointer;
+  }
+}
+}
 </style>

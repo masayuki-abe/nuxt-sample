@@ -58,8 +58,6 @@ export default {
   }
 
   &__content{
-    @include fontSet(32, 48, 100, $tab);
-
     overflow-y: scroll;
     width: 100%;
     height: 100%;
