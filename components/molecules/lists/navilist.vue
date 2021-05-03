@@ -6,8 +6,8 @@
       </Nuxt-link>
     </li>
     <li>
-      <Nuxt-link to="/information/">
-        Information
+      <Nuxt-link to="/sample/">
+        Sample
       </Nuxt-link>
     </li>
     <li>

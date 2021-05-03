@@ -1,5 +1,8 @@
 <template>
-  <div class="btn-hamburger" @click="btnMenu">
+  <div
+    class="btn-hamburger"
+    @click="btnMenu"
+  >
     <span />
     <span />
     <span />
