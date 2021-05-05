@@ -2,17 +2,17 @@
   <main>
     <section id="sample-list__box01" class="common-box">
       <h2>Sample List</h2>
-      <sampleLists />
+      <SampleLists />
     </section>
   </main>
 </template>
 
 <script>
-import sampleLists from '@/components/molecules/lists/sampleList'
+import SampleLists from '@/components/molecules/lists/SampleList'
 
 export default {
   components: {
-    sampleLists
+    SampleLists
   }
 }
 </script>

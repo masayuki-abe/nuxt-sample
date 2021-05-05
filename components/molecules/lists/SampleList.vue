@@ -1,6 +1,6 @@
 <template>
   <ul class="sample-list">
-    <li v-for="sample in samples" :key="sample.id">
+    <li v-for="sample in samples" :key="sample.id" :class="sample.hash">
       {{ sample.id }}{{ sample.name }}
     </li>
   </ul>
