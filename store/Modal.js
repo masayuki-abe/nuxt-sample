@@ -1,12 +1,18 @@
 export const state = () => ({
-  modalFlag: false
+  isModalFlag: false
 })
 
 export const mutations = {
-  openModal (state) {
-    state.modalFlag = true
+  setModalFlag (state, isModalFlag) {
+    state.isModalFlag = isModalFlag
+  }
+}
+
+export const actions = {
+  openModal ({ commit }) {
+    commit('setModalFlag', true)
   },
-  closeModal (state) {
-    state.modalFlag = false
+  closeModal ({ commit }) {
+    commit('setModalFlag', false)
   }
 }
