@@ -1,11 +1,11 @@
 <template>
   <transition name="modal" appear>
     <div
-      class="modal__base"
+      class="c-modal_base"
       @click="closeModal"
     >
-      <div class="modal__wrap">
-        <div class="modal__content">
+      <div class="c-modal_wrap">
+        <div class="c-modal_content">
           <slot />
         </div>
         <IcnTime />
@@ -30,8 +30,8 @@ export default {
 </script>
 
 <style lang="scss">
-.modal{
-  &__base{
+.c-modal{
+  &_base{
     position: absolute;
     left: 0;
     top: 0;
@@ -41,10 +41,11 @@ export default {
     background-color: rgba($dark, 0.7);
   }
 
-  &__wrap{
+  &_wrap{
     position: absolute;
     left: 50%;
     top: 50%;
+    z-index: 1100;
     width: 90%;
     height: 80%;
     transform: translate(-50%, -50%);
@@ -57,7 +58,7 @@ export default {
     }
   }
 
-  &__content{
+  &_content{
     overflow-y: scroll;
     width: 100%;
     height: 100%;
@@ -73,7 +74,7 @@ export default {
   &-leave-active{
     transition: opacity 0.6s ease;
 
-    .modal__content{
+    .c-modal_content{
       transition: opacity 0.4s ease, transform 0.8s ease;
     }
   }
@@ -85,7 +86,7 @@ export default {
   &-leave-to{
     opacity: 0;
 
-    .modal__content{
+    .c-modal_content{
       opacity: 0;
       transform: translateY(-20px);
     }

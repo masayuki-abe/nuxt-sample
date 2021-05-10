@@ -1,6 +1,6 @@
 <template>
-  <header id="header">
-    <div class="header__inner">
+  <header id="l-header">
+    <div class="l-header_inner">
       <h1>Header</h1>
       <BtnHamburger
         :class="{active : gnaviOn}"
@@ -70,55 +70,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-#header{
-  position: relative;
-  padding: per(20, $tab);
-  border-bottom: 1px $dark solid;
-
-  .header__inner{
-    position: relative;
-    width: 100%;
-
-    h1{
-      padding: .5em 0;
-      line-height: 1;
-    }
-  }
-
-  .gnavi{
-    overflow: hidden;
-    position: absolute;
-    left: 0;
-    top: 100%;
-    z-index: 900;
-    width: 100%;
-    transition: height .6s ease;
-  }
-}
-
-@include lap() {
-#header{
-  @include dflex(sb, c);
-
-  position: relative;
-  padding: per(20, $lap);
-
-  .header__inner{
-    width: auto;
-
-    h1{
-      padding: 0;
-    }
-  }
-
-  .gnavi{
-    overflow: visible;
-    position: static;
-    width: auto;
-    transition: none;
-  }
-}
-}
-</style>

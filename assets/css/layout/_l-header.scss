@@ -1,0 +1,49 @@
+#l-header{
+  position: relative;
+  padding: per(20, $tab);
+  border-bottom: 1px $dark solid;
+
+  .l-header_inner{
+    position: relative;
+    width: 100%;
+
+    h1{
+      padding: .5em 0;
+      line-height: 1;
+    }
+  }
+
+  .gnavi{
+    overflow: hidden;
+    position: absolute;
+    left: 0;
+    top: 100%;
+    z-index: 900;
+    width: 100%;
+    transition: height .6s ease;
+  }
+}
+
+@include lap() {
+#l-header{
+  @include dflex(sb, c);
+
+  position: relative;
+  padding: per(20, $lap);
+
+  .l-header_inner{
+    width: auto;
+
+    h1{
+      padding: 0;
+    }
+  }
+
+  .gnavi{
+    overflow: visible;
+    position: static;
+    width: auto;
+    transition: none;
+  }
+}
+}

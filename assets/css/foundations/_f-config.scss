@@ -1,0 +1,14 @@
+//Text
+.common-txt{
+  @include fontSet(32, 48, 100, $tab);
+}
+@include tab() {
+  .common-txt{
+    @include fontSet(20, 36, 100, $tab);
+  }
+}
+@include lap() {
+  .common-txt{
+    @include fontSet(16, 24, 100, $tab);
+  }
+}

@@ -1,8 +1,8 @@
 <template>
   <p
     v-if="btnStyle === 'modal'"
-    class="btn__text"
-    :class="[btnStyle, color]"
+    class="c-btn_text"
+    :class="['c-btn_text--' + btnStyle, color]"
     @click="openModal"
   >
     <span>{{ linkText }}</span>
@@ -12,10 +12,10 @@
   </p>
   <p
     v-else
-    class="btn__text"
-    :class="[btnStyle, color]"
+    class="c-btn_text"
+    :class="['c-btn_text--' + btnStyle, color]"
   >
-    <Nuxt-link :to="linkPath">
+    <Nuxt-link :to="'/' + linkPath">
       <span>{{ linkText }}</span>
     </Nuxt-link>
   </p>
@@ -57,20 +57,3 @@ export default {
   }
 }
 </script>
-
-<style lang="scss" scoped>
-.modal{
-  position: relative;
-}
-
-@include pc{
-.modal{
-  transition: opacity 0.4s ease;
-
-  &:hover{
-    opacity: 0.7;
-    cursor: pointer;
-  }
-}
-}
-</style>
