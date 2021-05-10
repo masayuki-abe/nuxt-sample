@@ -1,16 +1,15 @@
 .l-navilist{
   @include dflex(fe, fe);
-
   list-style: none;
   flex-direction: column;
+  background-color: rgba($black, 0.7);
 
   li{
     a{
       @include dis(block);
       @include fontSet(42, 42, 100, $tab);
-
       padding: .5em 1em;
-      color: $dark;
+      color: $white;
       font-weight: 700;
       text-decoration: none;
     }
@@ -30,20 +29,24 @@
 @include lap() {
 .l-navilist{
   @include dflex(fe, c);
-
   flex-direction: row;
-
+  background-color: $white;
   li{
     a{
       @include dis(block);
       @include fontSet(16, 16, 100, $lap);
-
       margin: 0 .8em;
       padding: .2em;
+      color: $black;
       transition: background .6s ease, color .6s ease;
 
       &:hover{
         background-color: $dark;
+        color: $white;
+      }
+
+      &.nuxt-link-exact-active{
+        background-color: rgba($black, 0.7);
         color: $white;
       }
     }
