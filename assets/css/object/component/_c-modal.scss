@@ -1,0 +1,18 @@
+//Modal Window
+.c-modal{
+  @include fontSet(32, 48, 100, $tab);
+  width: 90%;
+  margin: 0 auto;
+}
+
+@include tab() {
+.c-modal{
+  @include fontSet(20, 36, 100, $tab);
+}
+}
+
+@include lap() {
+.c-modal{
+  @include fontSet(16, 24, 100, $tab);
+}
+}

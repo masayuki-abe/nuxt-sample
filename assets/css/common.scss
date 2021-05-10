@@ -1,48 +1,12 @@
-@import './_variables';
-@import './_functions';
-@import './_mixin';
-
-
-
-*{
-	margin: 0;
-	padding: 0;
-	box-sizing: border-box;
-}
-
-
-
-//Base
-html{
-  font-size: 62.5%;
-}
-body{
-  background-color: $white;
-  color: $dark;
-  font-size: 1rem;
-  font-family: 'Noto Sans JP', sans-serif;
-  font-weight: 400;
-}
-#wrap{
-  padding: per(40, $tab) 0;
-}
-.common-box{
-  width: per($tab - 40, $tab);
-  margin: 0 auto;
-}
-
-
-//Text
-.common-txt{
-  @include fontSet(32, 48, 100, $tab);
-}
-@include tab() {
-  .common-txt{
-    @include fontSet(20, 36, 100, $tab);
-  }
-}
-@include lap() {
-  .common-txt{
-    @include fontSet(16, 24, 100, $tab);
-  }
-}
+@import './foundations/_f-reset';
+@import './foundations/_f-variables';
+@import './foundations/_f-functions';
+@import './foundations/_f-mixin';
+@import './foundations/_f-base';
+@import './layout/_l-header';
+@import './layout/_l-hamburger';
+@import './layout/_l-navilist';
+@import './object/component/_c-box';
+@import './object/component/_c-button';
+@import './object/component/_c-list';
+@import './object/component/_c-modal';
