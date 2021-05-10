@@ -1,11 +1,11 @@
 <template>
-  <ul class="sample-list">
-    <li v-for="sample in samples" :key="sample.id" :class="sample.hash">
+  <ul class="c-list_sample">
+    <li v-for="sample in samples" :key="sample.id" class="c-modal" :class="sample.path">
       <BtnText
         btn-style="modal"
         :link-text="sample.name"
         color="white"
-        @open-modal="openModal"
+        @open-modal="openModal(sample)"
       />
       <Modal
         v-if="modalFlag"
@@ -13,18 +13,18 @@
       >
         <dl>
           <dt>
-            <span>{{ sample.name }}</span><br>
-            {{ sample.nameJa }}
+            <span>{{ postItem.name }}</span><br>
+            {{ postItem.nameJa }}
           </dt>
           <dd>
             <p class="comment">
-              {{ sample.comment }}
+              {{ postItem.comment }}
             </p>
             <BtnText
               btn-style="border"
               color="dark"
-              :link-path="sample.hash"
-              :link-text="sample.name"
+              :link-path="postItem.path"
+              :link-text="postItem.name"
             />
           </dd>
         </dl>
@@ -44,7 +44,8 @@ export default {
   },
   data () {
     return {
-      modalFlag: false
+      modalFlag: false,
+      postItem: ''
     }
   },
   computed: {
@@ -52,14 +53,14 @@ export default {
       const sampleList = [
         {
           id: '1',
-          hash: 'hamburger-menu',
+          path: 'hamburger-menu',
           name: 'Hamburger Menu',
           nameJa: 'ハンバーガーメニュー',
           comment: '言わずと知れた「三本線」のボタンクリックでメニューの開閉を実行。ヘッダ右上のボタンがそれ。'
         },
         {
           id: '2',
-          hash: 'modal-window',
+          path: 'modal-window',
           name: 'Modal Window',
           nameJa: 'モーダルウィンドウ',
           comment: 'ウィンドウ内で、「子ウィンドウ」を展開。課題あり。どう解決するか。'
@@ -69,8 +70,9 @@ export default {
     }
   },
   methods: {
-    openModal () {
+    openModal (sample) {
       this.modalFlag = true
+      this.postItem = sample
     },
     closeModal () {
       this.modalFlag = false
@@ -78,3 +80,6 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+</style>

@@ -1,0 +1,14 @@
+//Base
+html{
+  font-size: 62.5%;
+}
+body{
+  background-color: $white;
+  color: $dark;
+  font-size: 1rem;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-weight: 400;
+}
+#f-wrap{
+  padding: per(40, $tab) 0;
+}

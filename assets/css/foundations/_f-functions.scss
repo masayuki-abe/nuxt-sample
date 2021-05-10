@@ -1,0 +1,4 @@
+//Calc Percentage
+@function per($child, $parent){
+  @return ($child / $parent) * 100%;
+}

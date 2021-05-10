@@ -15,7 +15,7 @@
     class="btn__text"
     :class="[btnStyle, color]"
   >
-    <Nuxt-link :to="linkPath">
+    <Nuxt-link :to="'/' + linkPath">
       <span>{{ linkText }}</span>
     </Nuxt-link>
   </p>

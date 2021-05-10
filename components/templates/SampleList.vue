@@ -1,6 +1,6 @@
 <template>
   <main>
-    <section id="sample-list__box01" class="common-box">
+    <section id="p-sample-list_box01" class="c-box">
       <h2>Sample List</h2>
       <SampleLists />
     </section>
@@ -16,3 +16,12 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+#p-sample-list_box01{
+  h2{
+    padding-bottom: 1em;
+    @include ta(center);
+  }
+}
+</style>
