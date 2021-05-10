@@ -6,17 +6,17 @@
       </Nuxt-link>
     </li>
     <li>
-      <Nuxt-link to="/sample/">
+      <Nuxt-link to="/sample">
         Sample
       </Nuxt-link>
     </li>
     <li>
-      <Nuxt-link to="/about/">
+      <Nuxt-link to="/about">
         About us
       </Nuxt-link>
     </li>
     <li>
-      <Nuxt-link to="/contact/">
+      <Nuxt-link to="/contact">
         Contact
       </Nuxt-link>
     </li>

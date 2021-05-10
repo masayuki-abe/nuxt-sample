@@ -1,6 +1,6 @@
 <template>
   <div
-    class="l-hamburger"
+    class="l-hamburger btn-hamburger"
     @click="btnMenu"
   >
     <span />
