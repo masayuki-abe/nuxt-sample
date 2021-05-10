@@ -1,8 +1,10 @@
 <template>
   <main>
-    <section id="p-sample-list_box01" class="c-box">
-      <h2>Sample List</h2>
-      <SampleLists />
+    <section id="p-sample-list_box01">
+      <div class="c-box">
+        <h2>Sample List</h2>
+        <SampleLists />
+      </div>
     </section>
   </main>
 </template>
