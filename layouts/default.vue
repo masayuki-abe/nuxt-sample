@@ -1,7 +1,7 @@
 <template>
   <div>
     <HtmlHeader />
-    <div id="wrap">
+    <div id="f-wrap">
       <Nuxt />
     </div>
     <HtmlFooter />
