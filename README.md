@@ -1,4 +1,4 @@
-# nuxt-snipet
+# nuxt-sample
 
 ## Build Setup
 
