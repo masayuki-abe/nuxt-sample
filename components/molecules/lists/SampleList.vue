@@ -1,34 +1,39 @@
 <template>
   <ul class="c-list_sample">
     <li v-for="sample in samples" :key="sample.id" class="c-modal" :class="postItem.path">
-      <BtnText
-        btn-style="modal"
-        :link-text="sample.name"
-        color="white"
-        @open-modal="openModal(sample)"
-      />
-      <Modal
-        v-if="modalFlag"
-        @close-modal="closeModal"
-      >
-        <dl>
-          <dt>
-            <span>{{ postItem.name }}</span><br>
-            {{ postItem.nameJa }}
-          </dt>
-          <dd>
-            <p class="comment common-txt">
-              {{ postItem.comment }}
-            </p>
-            <BtnText
-              btn-style="ghost"
-              color="white"
-              :link-path="postItem.path"
-              :link-text="postItem.name"
-            />
-          </dd>
-        </dl>
-      </Modal>
+      <template v-if="$window.width < 1024">
+        <BtnText
+          btn-style="modal"
+          :link-text="sample.name"
+          color="white"
+          @open-modal="openModal(sample)"
+        />
+        <Modal
+          v-if="modalFlag"
+          @close-modal="closeModal"
+        >
+          <dl>
+            <dt>
+              <span>{{ postItem.name }}</span><br>
+              {{ postItem.nameJa }}
+            </dt>
+            <dd>
+              <p class="comment common-txt">
+                {{ postItem.comment }}
+              </p>
+              <BtnText
+                btn-style="ghost"
+                color="white"
+                :link-path="postItem.path"
+                :link-text="postItem.name"
+              />
+            </dd>
+          </dl>
+        </Modal>
+      </template>
+      <template v-else>
+        <p>pc</p>
+      </template>
     </li>
   </ul>
 </template>
