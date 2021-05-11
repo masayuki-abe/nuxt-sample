@@ -4,22 +4,26 @@ Vue.use({
   install (Vue) {
     const $window = Vue.observable({
       width: 0,
-      height: 0
+      height: 0,
+      pageYOffset: 0
     })
-    let queue = null
-    const wait = 100
 
-    const getWindowSize = () => {
-      clearTimeout(queue)
-
-      queue = setTimeout(function () {
+    // SSR 時にエラーが出るため process.browser で分岐
+    // Nuxt を使用しなければこの分岐は削除してください
+    if (process.browser) {
+      const onScroll = () => {
+        $window.pageYOffset = global.pageYOffset
+      }
+      const onResize = () => {
         $window.width = document.documentElement.clientWidth
-        $window.height = document.documentElement.clientHeight
-      }, wait)
+        $window.height = global.innerHeight
+      }
+      global.addEventListener('scroll', onScroll)
+      global.addEventListener('resize', onResize)
+      // 一度だけスクロールハンドラとリサイズハンドラを直接呼んで初期値をセット
+      onScroll()
+      onResize()
     }
-
-    global.addEventListener('resize', getWindowSize)
-    getWindowSize()
 
     Vue.prototype.$window = $window
   }
