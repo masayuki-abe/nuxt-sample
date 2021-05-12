@@ -5,9 +5,15 @@
         <dl>
           <Accordion
             aco-title-tag="dt"
-            aco-title="アコーディオンタイトル"
+            aco-title="title1"
           >
-            <dd>test</dd>
+            <dd>test1</dd>
+          </Accordion>
+          <Accordion
+            aco-title-tag="dt"
+            aco-title="title2"
+          >
+            <dd>test2</dd>
           </Accordion>
         </dl>
       </div>
