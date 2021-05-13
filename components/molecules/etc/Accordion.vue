@@ -3,7 +3,7 @@
     <component
       :is="acoTitleTag"
     >
-      <button class="aco-btn" type="button" :class="{ 'active' : isOpen }" @click="acoToggle">
+      <button class="c-accordion_btn" type="button" :class="{ 'active' : isOpen }" @click="acoToggle">
         <span>{{ acoTitle }}</span>
         <IcnArrow />
       </button>
@@ -15,8 +15,10 @@
       @before-leave="beforeLeave"
       @leave="leave"
     >
-      <div v-if="isOpen" class="aco-body" :class="{ 'active' : isOpen }">
-        <slot />
+      <div v-if="isOpen" class="c-accordion_body" :class="{ 'active' : isOpen }">
+        <div class="c-accordion_body--inner">
+          <slot />
+        </div>
       </div>
     </transition>
   </div>
@@ -65,8 +67,23 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.aco-body{
+.c-accordion_body{
   height: 0;
   transition: height 1s ease;
+}
+.accordion-enter-active{
+  animation: aco-open 1s ease .2s both;
+}
+.accordion-leave-active{
+  animation: aco-close 1s ease both;
+}
+
+@keyframes aco-open{
+  0%{opacity: 0;}
+  100%{opacity: 1;}
+}
+@keyframes aco-close{
+  0%{opacity: 1;}
+  100%{opacity: 0;}
 }
 </style>
