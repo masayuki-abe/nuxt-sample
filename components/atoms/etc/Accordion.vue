@@ -4,7 +4,8 @@
       :is="acoTitleTag"
     >
       <button class="aco-btn" type="button" :class="{ 'active' : isOpen }" @click="acoToggle">
-        {{ acoTitle }}
+        <span>{{ acoTitle }}</span>
+        <IcnArrow />
       </button>
     </component>
     <transition
@@ -22,7 +23,12 @@
 </template>
 
 <script>
+import IcnArrow from '@/components/atoms/icons/ArrowIcn'
+
 export default {
+  components: {
+    IcnArrow
+  },
   props: {
     acoTitleTag: {
       type: String,
