@@ -68,7 +68,7 @@ export default {
 
 <style lang="scss" scoped>
 .c-accordion_body{
-  height: 0;
+  overflow: hidden;
   transition: height 1s ease;
 }
 .accordion-enter-active{

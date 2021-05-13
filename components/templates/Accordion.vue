@@ -34,6 +34,28 @@
         </Accordion>
       </div>
     </section>
+
+    <section id="p-accordion_box03">
+      <div class="c-box">
+        <h3>配列読み込みパタン</h3>
+        <p class="common-txt">
+          上記と同じ仕組みで開閉ボタンのテキストと展開する内容を配列から読み込む。<br>
+          見た目が決まっているシンプルな内容であればこちらの方が賢そう。
+        </p>
+        <ul>
+          <li v-for="acoList in acoLists" :key="acoList.id" :class="acoList.id">
+            <dl>
+              <Accordion
+                aco-title-tag="dt"
+                :aco-title="acoList.acoArrayTitle"
+              >
+                <dd>{{ acoList.acoArrayBody }}</dd>
+              </Accordion>
+            </dl>
+          </li>
+        </ul>
+      </div>
+    </section>
   </main>
 </template>
 
@@ -43,6 +65,28 @@ import Accordion from '@/components/molecules/etc/Accordion'
 export default {
   components: {
     Accordion
+  },
+  computed: {
+    acoLists () {
+      const acoArrayList = [
+        {
+          id: 'aco1',
+          acoArrayTitle: '配列から読み込む',
+          acoArrayBody: '自由記述の代わりに配列から読み込む。マークアップはul>liでliを繰り返している。'
+        },
+        {
+          id: 'aco2',
+          acoArrayTitle: 'ただし……？',
+          acoArrayBody: '配列で型にはめるからある程度制限されてしまう？　展開するコンテンツ内で自由に記述するにはどうすればいいんだろう。'
+        },
+        {
+          id: 'aco3',
+          acoArrayTitle: 'ちなみに',
+          acoArrayBody: 'アコーディオンのコンポネントでは機能のみを設定しているので、見た目は読み込むページで自由に変えられる。'
+        }
+      ]
+      return acoArrayList
+    }
   }
 }
 </script>
@@ -55,7 +99,7 @@ export default {
       @include fontSet(32, 32, 100, $tab);
       padding: 1em;
       background: $gray;
-      border: 2px $black solid;
+      border: 2px $darkGray solid;
       color: $white;
       transition: border 1s ease, color 1s ease;
       .icon{
@@ -79,6 +123,77 @@ export default {
         padding: 1em;
         background-color: $black;
         color: $white;
+      }
+    }
+  }
+}
+
+#p-accordion_box03{
+  ul{
+    list-style: none;
+    border: 2px $darkGray solid;
+    border-radius: 10px;
+
+    li{
+      .c-accordion{
+        &_btn{
+          @include fontSet(32, 32, 100, $tab);
+          padding: 1em;
+          color: $white;
+          transition: border 1s ease, color 1s ease;
+          .icon{
+            border-right: 2px $darkGray solid;
+            border-bottom: 2px $darkGray solid;
+            transition: border 1s ease, transform 1s ease;
+          }
+        }
+        &_body{
+          &--inner{
+            @include fontSet(32, 48, 100, $tab);
+            padding: 1em;
+            background-color: $black;
+            color: $white;
+          }
+        }
+      }
+      &.aco1{
+        .c-accordion{
+          &_btn{
+            border-bottom: 2px red solid;
+            color: red;
+          }
+          &_body{
+            &--inner{
+              background-color: red;
+            }
+          }
+        }
+      }
+      &.aco2{
+        .c-accordion{
+          &_btn{
+            border-bottom: 2px green solid;
+            color: green;
+          }
+          &_body{
+            &--inner{
+              background-color: green;
+            }
+          }
+        }
+      }
+      &.aco3{
+        .c-accordion{
+          &_btn{
+            color: blue;
+          }
+          &_body{
+            &--inner{
+              background-color: blue;
+              border-radius: 0 0 10px 10px;
+            }
+          }
+        }
       }
     }
   }
