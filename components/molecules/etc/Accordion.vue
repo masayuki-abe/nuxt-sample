@@ -3,10 +3,18 @@
     <component
       :is="acoTitleTag"
     >
-      <button class="c-accordion_btn" type="button" :class="{ 'active' : isOpen }" @click="acoToggle">
-        <span>{{ acoTitle }}</span>
-        <IcnArrow />
-      </button>
+      <template v-if="acoType === 'type2'">
+        <button class="c-accordion_btn" type="button" :class="{ 'active' : isOpen }" @click="acoToggle2">
+          <span>{{ acoTitle }}</span>
+          <IcnArrow />
+        </button>
+      </template>
+      <template v-else>
+        <button class="c-accordion_btn" type="button" :class="{ 'active' : isOpen }" @click="acoToggle">
+          <span>{{ acoTitle }}</span>
+          <IcnArrow />
+        </button>
+      </template>
     </component>
     <transition
       name="accordion"
@@ -39,6 +47,10 @@ export default {
     acoTitle: {
       type: String,
       default: ''
+    },
+    acoType: {
+      type: String,
+      default: ''
     }
   },
   data () {
@@ -48,6 +60,9 @@ export default {
   },
   methods: {
     acoToggle () {
+      this.isOpen = !this.isOpen
+    },
+    acoToggle2 () {
       this.isOpen = !this.isOpen
     },
     beforeEnter (el) {

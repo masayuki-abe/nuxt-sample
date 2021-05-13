@@ -48,6 +48,7 @@
               <Accordion
                 aco-title-tag="dt"
                 :aco-title="acoList.acoArrayTitle"
+                aco-type="type2"
               >
                 <dd>{{ acoList.acoArrayBody }}</dd>
               </Accordion>
