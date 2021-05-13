@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import Accordion from '@/components/atoms/etc/Accordion'
+import Accordion from '@/components/molecules/etc/Accordion'
 
 export default {
   components: {
