@@ -4,7 +4,7 @@
       :is="acoTitleTag"
     >
       <template v-if="acoType === 'type2'">
-        <button class="c-accordion_btn" type="button" :class="{ 'active' : isOpen }" @click="acoToggle2">
+        <button class="c-accordion_btn type2" type="button" :class="{ 'active' : isOpen }" @click="acoToggle">
           <span>{{ acoTitle }}</span>
           <IcnArrow />
         </button>
@@ -60,9 +60,6 @@ export default {
   },
   methods: {
     acoToggle () {
-      this.isOpen = !this.isOpen
-    },
-    acoToggle2 () {
       this.isOpen = !this.isOpen
     },
     beforeEnter (el) {
