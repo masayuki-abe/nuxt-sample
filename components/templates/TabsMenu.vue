@@ -18,21 +18,19 @@
         </p>
         <div id="tab">
           <ul class="tabMenu">
-            <li v-for="(tab,index) in tabs" :key="index" class="tabItem" :class="[ activetab === (index+1) ? 'active' : '' ]" @click="activetab=(index+1)">
-              {{ tab.tabitem }}
+            <li v-for="(tab,index) in tabs" :key="index" class="tabItem" :class="[ activetab === (index + 1) ? 'active' : '', tab.tabClass ]" @click="activetab=(index+1)">
+              <TabsMenu
+                :tab-menu-class="tab.tabClass"
+                :tab-menu-name="tab.tabName"
+              />
             </li>
           </ul>
 
           <div class="tabContent">
-            <div v-for="(item,index) in contents" :key="index" class="tabBlock" :class="[ activetab === (index+1) ? 'show' : '' ]">
-              <div class="tabBlock__inner">
-                <h3 class="tabBlock__title">
-                  {{ item.title }}
-                </h3>
-                <p class="tabBlock__text">
-                  {{ item.text }}
-                </p>
-              </div>
+            <div v-for="(item,index) in contents" :key="index" class="tabBlock" :class="[ activetab === (index + s1) ? 'show' : '' ]">
+              <TabsContent
+                :tab-content-text="item.text"
+              />
             </div>
           </div>
         </div>
@@ -42,27 +40,31 @@
 </template>
 
 <script>
+import TabsMenu from '@/components/molecules/etc/TabsMenu'
+import TabsContent from '@/components/molecules/etc/TabsContent'
+
 export default {
+  components: {
+    TabsMenu,
+    TabsContent
+  },
   data () {
     return {
       activetab: 1,
 
       tabs: [
-        { tabitem: 'tab01' },
-        { tabitem: 'tab02' },
-        { tabitem: 'tab03' }
+        { tabClass: 'tab01', tabName: 'タブ01' },
+        { tabClass: 'tab02', tabName: 'タブ02タブ02' },
+        { tabClass: 'tab03', tabName: 'タブ03' }
       ],
       contents: [
         {
-          title: 'コンテンツ01',
+          text: '<p>ここに<strong>コンテンツ</strong>をいれる</p>'
+        },
+        {
           text: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
         },
         {
-          title: 'コンテンツ02',
-          text: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
-        },
-        {
-          title: 'コンテンツ03',
           text: 'テキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキストテキスト'
         }
       ]
