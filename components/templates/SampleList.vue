@@ -26,4 +26,10 @@ export default {
     @include ta(center);
   }
 }
+@include pc() {
+  #p-sample-list_box01{
+    width: per(1000, $pc);
+    margin: 0 auto;
+  }
+}
 </style>
