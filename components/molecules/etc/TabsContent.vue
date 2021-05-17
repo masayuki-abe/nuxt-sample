@@ -1,5 +1,5 @@
 <template>
-  <div class="tabBlock__inner">
+  <div class="c-tab_content--block-inner">
     <div v-html="tabContentText" />
   </div>
 </template>

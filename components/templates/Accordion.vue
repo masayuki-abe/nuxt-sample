@@ -30,7 +30,7 @@
         >
           <p>次は開閉ボタンをh4、展開要素を複数のタグで構成。</p>
           <p>たとえば画像を設置したり。class指定すればとにかく自由</p>
-          <figure><img src="~/assets/img/sample/accordion.jpg" alt="アコーディオン" width="960" height="960"></figure>
+          <figure><img src="/images/sample/accordion.jpg" alt="アコーディオン" width="960" height="960"></figure>
         </Accordion>
       </div>
     </section>

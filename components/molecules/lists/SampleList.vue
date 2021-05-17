@@ -76,7 +76,7 @@ export default {
         {
           id: '1',
           path: 'hamburger-menu',
-          img: require('@/assets/img/sample/hamburger-menu.jpg'),
+          img: '/images/sample/hamburger-menu.jpg',
           name: 'Hamburger Menu',
           nameJa: 'ハンバーガーメニュー',
           comment: '言わずと知れた「三本線」のボタンクリックでメニューの開閉を実行。ヘッダ右上のボタンがそれ。（PC版では非表示）'
@@ -84,7 +84,7 @@ export default {
         {
           id: '2',
           path: 'modal-window',
-          img: require('@/assets/img/sample/modal-window.jpg'),
+          img: '/images/sample/modal-window.jpg',
           name: 'Modal Window',
           nameJa: 'モーダルウィンドウ',
           comment: 'ウィンドウ内で、「子ウィンドウ」を展開。課題あり。どう解決するか。'
@@ -111,7 +111,7 @@ export default {
     &.hamburger-menu{
       .c-modal{
         &_wrap{
-          background: url(@/assets/img/sample/hamburger-menu.jpg) no-repeat center center;
+          background: url(/images/sample/hamburger-menu.jpg) no-repeat center center;
           background-size: cover;
         }
       }
@@ -119,7 +119,7 @@ export default {
     &.modal-window{
       .c-modal{
         &_wrap{
-          background: url(@/assets/img/sample/modal-window.jpg) no-repeat center center;
+          background: url(/images/sample/modal-window.jpg) no-repeat center center;
           background-size: cover;
         }
       }
