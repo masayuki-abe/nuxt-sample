@@ -3,3 +3,9 @@
   margin: 0 auto;
 }
 
+@include lap() {
+  .c-box{
+    max-width: 960px;
+  }
+}
+
