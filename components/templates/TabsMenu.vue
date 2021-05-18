@@ -3,7 +3,7 @@
     <section id="p-tabs-menu_box01">
       <div class="c-box">
         <h2>Tabs Menu</h2>
-        <p class="common-txt">
+        <p class="f-txt">
           あまり好きじゃない。スマホのときみづらくない？っていつも思う。<br>
           PCはタブメニューでスマホはアコーディオンとかって、Vue＋1ソースでやるとしたらどうやるんだろう……？
         </p>
@@ -13,7 +13,7 @@
     <section id="p-tabs-menu_box02">
       <div class="c-box">
         <h3>PC・スマホともにタブ</h3>
-        <p class="common-txt">
+        <p class="f-txt">
           配列処理で、展開するコンテンツの中身を自由に書けるようにしておけば良いかな、と。<br>
           なおここでは、メニューとコンテンツのコンポネントをわけて別々にしている。
         </p>
@@ -28,11 +28,11 @@
           </ul>
           <div class="c-tab_content">
             <div v-for="(item, index) in contents" :key="item.itemId" class="c-tab_content--block" :class="[ activetab === (index + 1) ? 'show' : '' ]">
-              <template v-if="activetab === (index + 1)">
+              <div v-show="activetab === (index + 1)">
                 <TabsContent
                   :tab-content-text="item.text"
                 />
-              </template>
+              </div>
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@
     <section id="p-tabs-menu_box03">
       <div class="c-box">
         <h3>PCでのみタブ</h3>
-        <p class="common-txt">
+        <p class="f-txt">
           PCではタブ表示して、スマホでは単純に縦並びに。こっちの方が文章構造的にはグッドではなかろうか。<br>
           読み込むコンポネントは上記と別。
         </p>
@@ -160,19 +160,91 @@ export default {
           width: 28%;
           border: 2px $gray solid;
           transform: translateY(2px);
+          transition: background 0.6s ease;
 
           &.active{
-            border-bottom: 2px $white solid;
+            background-color: $gray;
           }
         }
       }
       &_content{
         &--block{
+          transition: background 0.6s ease;
+
           &-inner{
             @include fontSet(32, 48, 100, $tab);
             padding: 1em;
             border: 2px $gray solid;
             border-top: none;
+          }
+          &.show{
+            background-color: $gray;
+          }
+        }
+      }
+    }
+  }
+  &_box03{
+    ul{
+      list-style: none;
+      border: 2px $gray solid;
+
+      li{
+        border-bottom: 2px $gray solid;
+        &:last-child{
+          border-bottom: none;
+        }
+        .c-tab-responsive_menu{
+          @include fontSet(32, 38, 100, $tab);
+          padding: 0.5em;
+          background-color: $white;
+          color: $dark;
+          transition: background 0.4s ease, color 0.4s ease;
+        }
+        .c-tab-responsive_content--block{
+          @include fontSet(32, 48, 100, $tab);
+          padding: 1em;
+        }
+        &.active{
+          .c-tab-responsive_menu{
+            background-color: $black;
+            color: $white;
+          }
+          .c-tab-responsive_content--block{
+            background-color: rgba($black, 0.2);
+          }
+        }
+      }
+    }
+  }
+}
+
+@include tab() {
+  #p-tabs-menu{
+    &_box02{
+      .c-tab{
+        &_menu{
+          &--item{
+            @include fontSet(24, 36, 0, $tab);
+          }
+        }
+        &_content{
+          &--block{
+            &-inner{
+              @include fontSet(24, 36, 100, $tab);
+            }
+          }
+        }
+      }
+    }
+    &_box03{
+      ul{
+        li{
+          .c-tab-responsive_menu{
+            @include fontSet(24, 36, 100, $tab);
+          }
+          .c-tab-responsive-content--block{
+            @include fontSet(24, 36, 100, $tab);
           }
         }
       }
@@ -182,14 +254,70 @@ export default {
 
 @include lap() {
   #p-tabs-menu{
+    &_box02{
+      .c-tab{
+        &_menu{
+          &--item{
+            @include fontSet(16, 24, 0, $lap);
+          }
+        }
+        &_content{
+          &--block{
+            &-inner{
+              @include fontSet(16, 24, 100, $lap);
+            }
+          }
+        }
+      }
+    }
     &_box03{
       ul{
         @include dflex(sa, st);
         position: relative;
-        list-style: none;
-
+        border: none;
         li{
           width: 28%;
+          border-bottom: none;
+          .c-tab-responsive_menu{
+            @include fontSet(16, 24, 0, $lap);
+            border: 2px $black solid;
+            border-radius: 0.5em 0.5em 0 0;
+            transform: translateY(-2px);
+            transition: background 0.6s ease;
+          }
+          .c-tab-responsive_content{
+            @include fontSet(16, 24, 0, $lap);
+            padding: 1em;
+            border: 2px $black solid;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include pc() {
+  #p-tabs-menu{
+    &_box02{
+      .c-tab{
+        &_menu{
+          &--item{
+            &:hover{
+              background-color: $gray;
+            }
+          }
+        }
+      }
+    }
+    &_box03{
+      ul{
+        li{
+          .c-tab-responsive_menu{
+            &:hover{
+              background-color: $black;
+              color: $white;
+            }
+          }
         }
       }
     }

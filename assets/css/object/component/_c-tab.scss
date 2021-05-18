@@ -35,6 +35,17 @@
     }
   }
 }
+@include pc() {
+  .c-tab{
+    &_menu{
+      &--item{
+        &:hover{
+          cursor: pointer;
+        }
+      }
+    }
+  }
+}
 
 .c-tab-responsive{
   &_content{
@@ -60,6 +71,15 @@
         opacity: 1;
         // position: relative;
         height: auto;
+      }
+    }
+  }
+}
+@include pc() {
+  .c-tab-responsive{
+    &_menu{
+      &:hover{
+        cursor: pointer;
       }
     }
   }

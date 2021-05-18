@@ -3,7 +3,7 @@
     <section id="p-accordion_box01">
       <div class="c-box">
         <h2>Accordion</h2>
-        <p class="common-txt">
+        <p class="f-txt">
           というか、正確に言うとSlide Toggleになるのか。
         </p>
       </div>
@@ -12,7 +12,7 @@
     <section id="p-accordion_box02">
       <div class="c-box">
         <h3>ベタ書きパタン</h3>
-        <p class="common-txt">
+        <p class="f-txt">
           開閉ボタンのタグとテキストを指定して、展開する要素はHTMLで自由に書くパタン。<br>
           手間はあるけれど好きなように任意の場所に設置しやすい（と、思っている）。
         </p>
@@ -38,7 +38,7 @@
     <section id="p-accordion_box03">
       <div class="c-box">
         <h3>配列読み込みパタン</h3>
-        <p class="common-txt">
+        <p class="f-txt">
           上記と同じ仕組みで開閉ボタンのテキストと展開する内容を配列から読み込む。<br>
           見た目が決まっているシンプルな内容であればこちらの方が賢そう。
         </p>

@@ -18,7 +18,7 @@
               {{ postItem.nameJa }}
             </dt>
             <dd>
-              <p class="comment common-txt">
+              <p class="comment f-txt">
                 {{ postItem.comment }}
               </p>
               <BtnText
@@ -39,7 +39,7 @@
             {{ sample.nameJa }}
           </dt>
           <dd>
-            <p class="comment common-txt">
+            <p class="comment f-txt">
               {{ sample.comment }}
             </p>
             <BtnText

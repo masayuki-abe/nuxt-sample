@@ -1,5 +1,5 @@
 <template>
-  <div ref="tabs" class="c-tab-responsive" style="font-size: 20px;">
+  <div ref="tabs" class="c-tab-responsive">
     <component :is="tabTag" ref="tabBtn" class="c-tab-responsive_menu">
       {{ tabName }}
     </component>
@@ -12,7 +12,7 @@
     >
       <component :is="tabBodyTag" v-show="isActive === tabId" ref="tabBody" class="c-tab-responsive_content">
         <div class="c-tab-responsive_content--block">
-          <div class="c-tab-responsive-content--block-inner">
+          <div class="c-tab-responsive_content--block-inner">
             <div v-html="tabText" />
           </div>
         </div>
@@ -50,9 +50,7 @@ export default {
     }
   },
   mounted () {
-    if (this.$window.width >= 1024) {
-      this.tabs()
-    }
+    this.tabs()
   },
   methods: {
     beforeEnter (el) {
