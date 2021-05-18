@@ -76,14 +76,16 @@ export default {
       }
     },
     tabs () {
-      const tabs = this.$refs.tabs
-      const tabBtn = this.$refs.tabBtn
-      const tabBody = this.$refs.tabBody
-      const tabBtnHeight = tabBtn.clientHeight
-      const tabBodyHeight = tabBody.clientHeight
-      const tabsHeight = tabBtnHeight + tabBodyHeight
-      tabs.style.height = tabsHeight + 'px'
-      tabBody.style.top = tabBtnHeight + 'px'
+      if (this.$window.width >= 1024) {
+        const tabs = this.$refs.tabs
+        const tabBtn = this.$refs.tabBtn
+        const tabBody = this.$refs.tabBody
+        const tabBtnHeight = tabBtn.clientHeight
+        const tabBodyHeight = tabBody.clientHeight
+        const tabsHeight = tabBtnHeight + tabBodyHeight
+        tabs.style.height = tabsHeight + 'px'
+        tabBody.style.top = tabBtnHeight + 'px'
+      }
     }
   }
 }
