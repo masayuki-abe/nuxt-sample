@@ -1,7 +1,7 @@
 <template>
   <ul class="l-navilist">
     <li v-for="navilist in navilists" :key="navilist.path" :class="navilist.path">
-      <Nuxt-link :to="navilist.path">
+      <Nuxt-link :to="navilist.path" @click.native="naviLinkSp">
         {{ navilist.name }}
       </Nuxt-link>
     </li>
@@ -31,6 +31,11 @@ export default {
         }
       ]
       return navi
+    }
+  },
+  methods: {
+    naviLinkSp () {
+      this.$emit('naviLinkSp')
     }
   }
 }

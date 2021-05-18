@@ -17,7 +17,9 @@
         v-if="gnaviOn || !isMobile"
         class="gnavi"
       >
-        <LstNavi />
+        <LstNavi
+          @naviLinkSp="toggleMenu"
+        />
       </nav>
     </transition>
   </header>
