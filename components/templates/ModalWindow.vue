@@ -2,7 +2,7 @@
   <main>
     <section id="modal-window__box01" class="common-box">
       <h2>Modal Window</h2>
-      <p class="common-txt">
+      <p class="f-txt">
         モーダルウィンドウのサンプル。下記のボタンをクリック（タップ）することで動作確認できる。
       </p>
     </section>
