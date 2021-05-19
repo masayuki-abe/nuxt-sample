@@ -2,7 +2,9 @@
   <header id="l-header">
     <div class="l-header_inner">
       <h1>
-        <Nuxt-link to="/">Nuxt Sample</Nuxt-link>
+        <Nuxt-link to="/">
+          Nuxt Sample
+        </Nuxt-link>
       </h1>
       <BtnHamburger
         :class="{active : gnaviOn}"
