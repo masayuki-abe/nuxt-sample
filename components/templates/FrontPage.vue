@@ -1,18 +1,26 @@
 <template>
   <main>
-    <p>FrontPage</p>
     <section id="c-front-page_box01" class="c-box">
+      <h2>Nuxt.js Sample</h2>
       <SampleLists />
+      <BtnText
+        btn-style="rounded"
+        color="dark"
+        link-path="sample"
+        link-text="More"
+      />
     </section><!-- /c-front-page_box01 -->
   </main>
 </template>
 
 <script>
 import SampleLists from '@/components/molecules/lists/SampleList'
+import BtnText from '@/components/atoms/buttons/TextBtn'
 
 export default {
   components: {
-    SampleLists
+    SampleLists,
+    BtnText
   },
   data () {
     return {
@@ -31,6 +39,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+#c-front-page{
+  &_box01{
+    .c-btn_text{
+      width: 50%;
+      margin: 0 auto;
+    }
+  }
+}
+
 .c-modal{
   dl{
     margin-bottom: 1em;
