@@ -26,8 +26,8 @@ export default {
           name: 'Api'
         },
         {
-          path: '/strage',
-          name: 'Strage'
+          path: '/storage',
+          name: 'Storage'
         }
       ]
       return navi

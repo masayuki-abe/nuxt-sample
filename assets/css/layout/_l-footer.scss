@@ -1,0 +1,27 @@
+#l-footer{
+  padding: per(100, $tab);
+  background-color: $black;
+  p{
+    @include fontSet(32, 32, 0, $tab);
+    @include ta(center);
+    color: $gray;
+  }
+}
+
+@include tab() {
+  #l-footer{
+    padding: per(50, $tab);
+    p{
+      @include fontSet(24, 24, 0, $tab);
+    }
+  }
+}
+
+@include lap() {
+  #l-footer{
+    padding: per(50, $lap);
+    p{
+      @include fontSet(14, 14, 0, $lap);
+    }
+  }
+}

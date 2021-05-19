@@ -1,5 +1,5 @@
 <template>
-  <footer id="footer">
-    <p>Footer</p>
+  <footer id="l-footer">
+    <p>©2021 Nuxt Sample</p>
   </footer>
 </template>
