@@ -14,6 +14,28 @@
         link-text="More"
       />
     </section><!-- /c-front-page_box01 -->
+
+    <section id="c-front-page_box02" class="c-box">
+      <Tit
+        tit-tag="h2"
+        tit-class="center"
+        tit-txt="Api"
+      />
+      <p class="f-txt">
+        Comming Soon...
+      </p>
+    </section><!-- /c-front-page_box02 -->
+
+    <section id="c-front-page_box03" class="c-box">
+      <Tit
+        tit-tag="h2"
+        tit-class="center"
+        tit-txt="Storage"
+      />
+      <p class="f-txt">
+        Comming Soon...
+      </p>
+    </section><!-- /c-front-page_box02 -->
   </main>
 </template>
 
@@ -47,9 +69,34 @@ export default {
 <style lang="scss" scoped>
 #c-front-page{
   &_box01{
+    padding-bottom: per(100, $tab);
     .c-btn_text{
       width: 50%;
       margin: 0 auto;
+    }
+  }
+  &_box02{
+    margin-bottom: per(50, $tab);
+    padding: per(40, $tab);
+    background-color: $darkGray;
+    .c-title{
+      color: $white;
+    }
+    .f-txt{
+      @include ta(center);
+      color: $gray;
+    }
+  }
+  &_box03{
+    margin-bottom: per(100, $tab);
+    padding: per(40, $tab);
+    background-color: $darkGray;
+    .c-title{
+      color: $white;
+    }
+    .f-txt{
+      @include ta(center);
+      color: $gray;
     }
   }
 }
