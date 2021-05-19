@@ -1,0 +1,7 @@
+.c-title{
+  @include fontSet(46, 52, 100, $tab);
+  padding-bottom: 1em;
+  &_center{
+    @include ta(center);
+  }
+}
