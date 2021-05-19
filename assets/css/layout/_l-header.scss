@@ -1,18 +1,21 @@
 #l-header{
   position: relative;
-  padding: per(20, $tab);
+  padding: 0 per(20, $tab);
+  background-color: $dark;
   border-bottom: 1px $dark solid;
-
   .l-header_inner{
     position: relative;
     width: 100%;
-
     h1{
+      @include fontSet(48, 48, 100, $tab);
       padding: .5em 0;
-      line-height: 1;
+      font-weight: 400;
+      a{
+        color: $white;
+        text-decoration: none;
+      }
     }
   }
-
   .gnavi{
     overflow: hidden;
     position: absolute;
@@ -24,17 +27,24 @@
   }
 }
 
+@include tab() {
+  #l-header{
+    .l-header_inner{
+      h1{
+        @include fontSet(36, 36, 100, $tab);
+      }
+    }
+  }
+}
+
 @include lap() {
 #l-header{
   @include dflex(sb, c);
-
-  position: relative;
-  padding: per(20, $lap);
-
+  padding: per(15, $lap) per(20, $lap);
   .l-header_inner{
     width: auto;
-
     h1{
+      @include fontSet(24, 24, 100, $lap);
       padding: 0;
     }
   }
