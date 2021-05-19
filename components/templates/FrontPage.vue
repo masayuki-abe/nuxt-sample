@@ -1,7 +1,11 @@
 <template>
   <main>
     <section id="c-front-page_box01" class="c-box">
-      <h2>Nuxt.js Sample</h2>
+      <Tit
+        tit-tag="h2"
+        tit-class="center"
+        tit-txt="Nuxt.js Sample"
+      />
       <SampleLists />
       <BtnText
         btn-style="rounded"
@@ -16,11 +20,13 @@
 <script>
 import SampleLists from '@/components/molecules/lists/SampleList'
 import BtnText from '@/components/atoms/buttons/TextBtn'
+import Tit from '../atoms/titles/Tit.vue'
 
 export default {
   components: {
     SampleLists,
-    BtnText
+    BtnText,
+    Tit
   },
   data () {
     return {
