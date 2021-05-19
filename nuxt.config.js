@@ -8,7 +8,7 @@ export default {
   ssr: false,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    title: 'nuxt-snipet',
+    title: 'Nuxt Sample',
     htmlAttrs: {
       lang: 'ja'
     },

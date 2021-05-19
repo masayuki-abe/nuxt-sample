@@ -36,6 +36,32 @@
       }
     }
   }
+  &--rounded{
+    a{
+      @include dis(block);
+      @include ta(center);
+      position: relative;
+      padding: .5em 1em;
+      background-color: $black;
+      border: 1px $black solid;
+      border-radius: 0.5em;
+      color: $white;
+      text-decoration: none;
+
+      &::after{
+        content: "";
+        position: absolute;
+        right: 0;
+        top: 50%;
+        width: 0.5em;
+        height: 0.5em;
+        margin: -0.25em 0.8em 0 0;
+        border-right: 2px $white solid;
+        border-bottom: 2px $white solid;
+        transform: rotate(-45deg);
+      }
+    }
+  }
 }
 
 @include tab() {
@@ -46,7 +72,7 @@
 
 @include lap() {
   .c-btn_text{
-    @include fontSet(16, 16, 100, $tab);
+    @include fontSet(16, 16, 100, $lap);
   }
 }
 
