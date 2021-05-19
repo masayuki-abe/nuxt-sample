@@ -1,6 +1,6 @@
 <template>
   <ul class="c-list_sample">
-    <li v-for="sample in samples" :key="sample.id" class="c-modal" :class="postItem.path">
+    <li v-for="sample in limitCount" :key="sample.id" class="c-modal" :class="postItem.path">
       <template v-if="$window.width < 1024">
         <BtnText
           btn-style="modal"
@@ -71,6 +71,13 @@ export default {
     }
   },
   computed: {
+    limitCount () {
+      if (this.$route.name === 'index') {
+        return this.samples.slice(0, 3)
+      } else {
+        return this.samples
+      }
+    },
     samples () {
       const sampleList = [
         {
