@@ -9,13 +9,13 @@
 
     <section id="modal-window__box02" class="common-box">
       <div class="modal-window">
-        <BtnText
+        <AtomsButtonsTextBtn
           btn-style="modal"
           link-text="Open the 'Modal Window'."
           color="white"
           @open-modal="openModal"
         />
-        <Modal
+        <MoleculesEtcModal
           v-if="modalFlag"
           @close-modal="closeModal"
         >
@@ -41,20 +41,14 @@
           <p>その三方の壁に、黒い鉄格子と、鉄網で二重に張り詰めた、大きな縦長い磨硝子の窓が一つ宛、都合三つ取付けられている、トテも要心堅固に構えた部屋の感じである。</p>
           <p>窓の無い側の壁の附け根には、やはり岩乗な鉄の寝台が一個、入口の方向を枕にして横たえてあるが、その上の真白な寝具が、キチンと敷き展べたままになっているところを見ると、まだ誰も寝たことがないらしい。</p>
           <p>……おかしいぞ…………。</p>
-        </Modal>
+        </MoleculesEtcModal>
       </div><!--/ modal window-->
     </section>
   </main>
 </template>
 
 <script>
-import BtnText from '@/components/atoms/buttons/TextBtn'
-import Modal from '@/components/atoms/etc/Modal'
 export default {
-  components: {
-    BtnText,
-    Modal
-  },
   data () {
     return {
       modalFlag: false
