@@ -1,0 +1,25 @@
+.c-blockquote{
+  padding: 1em;
+  background-color: $black;
+  color: $white;
+  &_body{
+    @include fontSet(32, 48, 100, $tab);
+    overflow-wrap: break-word;
+  }
+}
+
+@include tab() {
+  .c-blockquote{
+    &_body{
+      @include fontSet(24, 36, 100, $tab);
+    }
+  }
+}
+
+@include lap() {
+  .c-blockquote{
+    &_body{
+      @include fontSet(16, 24, 100, $tab);
+    }
+  }
+}

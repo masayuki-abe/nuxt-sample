@@ -1,0 +1,23 @@
+.c-code-highlight{
+  &_body{
+    @include fontSet(32, 48, 0, $tab);
+    margin-bottom: per(20, $tab);
+  }
+}
+
+@include tab() {
+  .c-code-highlight{
+    &_body{
+      @include fontSet(24, 36, 0, $tab);
+    }
+  }
+}
+
+@include lap() {
+  .c-code-highlight{
+    &_body{
+      @include fontSet(16, 24, 0, $tab);
+      margin-bottom: per(20, $lap);
+    }
+  }
+}

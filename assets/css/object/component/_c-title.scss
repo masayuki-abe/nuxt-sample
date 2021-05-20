@@ -4,4 +4,43 @@
   &_center{
     @include ta(center);
   }
+  &_code-highlight{
+    @include dis(inline-block);
+    @include fontSet(32, 32, 0, $tab);
+    padding: 0.5em;
+    background-color: $black;
+    color: $white;
+  }
+  &_blockquote{
+    @include fontSet(36, 42, 100, $tab);
+    padding-bottom: 0.5em;
+    font-weight: 700;
+    overflow-wrap: break-word;
+  }
+  &_middle{
+    @include fontSet(38, 42, 100, $tab);
+    margin-bottom: 1em;
+    padding: 0 .5em .5em;
+    border-bottom: 1px $dark solid;
+    font-weight: 400;
+  }
+}
+
+@include tab() {
+  .c-title{
+    &_code-highlight{
+      @include fontSet(24, 24, 0, $tab);
+    }
+  }
+}
+
+@include lap() {
+  .c-title{
+    &_code-highlight{
+      @include fontSet(16, 16, 0, $lap);
+    }
+    &_blockquote{
+      @include fontSet(24, 24, 100, $lap);
+    }
+  }
 }
