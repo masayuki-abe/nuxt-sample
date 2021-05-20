@@ -2,28 +2,28 @@
   <main>
     <section id="p-sample-list_box01">
       <div class="c-box">
-        <h2>Sample List</h2>
-        <SampleLists />
+        <AtomsTitlesTit
+          tit-tag="h2"
+          tit-class="center"
+          tit-txt="Sample"
+        />
+        <MoleculesListsSampleList />
+        <AtomsButtonsTextBtn
+          btn-style="rounded back"
+          color="dark"
+          link-path=""
+          link-text="Back"
+        />
       </div>
     </section>
   </main>
 </template>
 
-<script>
-import SampleLists from '@/components/molecules/lists/SampleList'
-
-export default {
-  components: {
-    SampleLists
-  }
-}
-</script>
-
 <style lang="scss" scoped>
 #p-sample-list_box01{
-  h2{
-    padding-bottom: 1em;
-    @include ta(center);
+  .c-btn_text{
+    width: 50%;
+    margin: 0 auto;
   }
 }
 @include pc() {
