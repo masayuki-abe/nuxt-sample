@@ -17,21 +17,21 @@
           手間はあるけれど好きなように任意の場所に設置しやすい（と、思っている）。
         </p>
         <dl>
-          <Accordion
+          <MoleculesEtcAccordion
             aco-title-tag="dt"
             aco-title="べたっと書く"
           >
             <dd>ここでは開閉ボタンをdt、展開要素をddに指定。この組み合わせが一番好きです。</dd>
-          </Accordion>
+          </MoleculesEtcAccordion>
         </dl>
-        <Accordion
+        <MoleculesEtcAccordion
           aco-title-tag="h4"
           aco-title="ベタ書きだから自由"
         >
           <p>次は開閉ボタンをh4、展開要素を複数のタグで構成。</p>
           <p>たとえば画像を設置したり。class指定すればとにかく自由</p>
           <figure><img src="/images/sample/accordion.jpg" alt="アコーディオン" width="960" height="960"></figure>
-        </Accordion>
+        </MoleculesEtcAccordion>
       </div>
     </section>
 
@@ -45,14 +45,14 @@
         <ul>
           <li v-for="acoList in acoLists" :key="acoList.id" :class="acoList.id">
             <dl>
-              <Accordion
+              <MoleculesEtcAccordion
                 aco-title-tag="dt"
                 :aco-title="acoList.acoArrayTitle"
                 aco-type="type2"
                 :aco-index="acoList.index"
               >
                 <dd>{{ acoList.acoArrayBody }}</dd>
-              </Accordion>
+              </MoleculesEtcAccordion>
             </dl>
           </li>
         </ul>
@@ -62,12 +62,7 @@
 </template>
 
 <script>
-import Accordion from '@/components/molecules/etc/Accordion'
-
 export default {
-  components: {
-    Accordion
-  },
   computed: {
     acoLists () {
       const acoArrayList = [

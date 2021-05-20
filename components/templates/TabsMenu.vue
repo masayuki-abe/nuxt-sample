@@ -20,7 +20,7 @@
         <div class="c-tab">
           <ul class="c-tab_menu">
             <li v-for="(tab, index) in tabs" :key="tab.tabId" class="c-tab_menu--item" :class="[ activetab === (index + 1) ? 'active' : '', tab.tabClass ]" @click="activetab = (index + 1)">
-              <TabsMenu
+              <MoleculesEtcTabsMenu
                 :tab-menu-class="tab.tabClass"
                 :tab-menu-name="tab.tabName"
               />
@@ -29,7 +29,7 @@
           <div class="c-tab_content">
             <div v-for="(item, index) in contents" :key="item.itemId" class="c-tab_content--block" :class="[ activetab === (index + 1) ? 'show' : '' ]">
               <div v-show="activetab === (index + 1)">
-                <TabsContent
+                <MoleculesEtcTabsContent
                   :tab-content-text="item.text"
                 />
               </div>
@@ -49,7 +49,7 @@
         <ul class="p-tabs-menu_box03-tablist">
           <li v-for="tab2 in tabs2" :key="tab2.tabId" :class="[ activetab2 === tab2.tabId ? 'active' : '', tab2.tabClass ]" class="p-tabs-menu_box03-tab" @click="changeTab(tab2.tabId)">
             <dl>
-              <TabsResponsive
+              <MoleculesEtcTabsResponsive
                 :is-active="activetab2"
                 :tab-id="tab2.tabId"
                 :tab-name="tab2.tabName"
@@ -66,16 +66,7 @@
 </template>
 
 <script>
-import TabsMenu from '@/components/molecules/etc/TabsMenu'
-import TabsContent from '@/components/molecules/etc/TabsContent'
-import TabsResponsive from '@/components/molecules/etc/TabsResposive'
-
 export default {
-  components: {
-    TabsMenu,
-    TabsContent,
-    TabsResponsive
-  },
   data () {
     return {
       activetab: 1,
