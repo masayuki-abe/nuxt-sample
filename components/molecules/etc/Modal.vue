@@ -8,19 +8,14 @@
         <div class="c-modal_content">
           <slot />
         </div>
-        <IcnTime />
+        <AtomsIconsTimeIcn />
       </div>
     </div>
   </transition>
 </template>
 
 <script>
-import IcnTime from '@/components/atoms/icons/TimeIcn'
-
 export default {
-  components: {
-    IcnTime
-  },
   methods: {
     closeModal () {
       this.$emit('close-modal')

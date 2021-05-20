@@ -2,13 +2,13 @@
   <ul class="c-list_sample">
     <li v-for="sample in limitCount" :key="sample.id" class="c-modal" :class="postItem.path">
       <template v-if="$window.width < 1024">
-        <BtnText
+        <AtomsButtonsTextBtn
           btn-style="modal"
           :link-text="sample.name"
           color="white"
           @open-modal="openModal(sample)"
         />
-        <Modal
+        <MoleculesEtcModal
           v-if="modalFlag"
           @close-modal="closeModal"
         >
@@ -21,7 +21,7 @@
               <p class="comment f-txt">
                 {{ postItem.comment }}
               </p>
-              <BtnText
+              <AtomsButtonsTextBtn
                 btn-style="ghost"
                 color="white"
                 :link-path="postItem.path"
@@ -29,7 +29,7 @@
               />
             </dd>
           </dl>
-        </Modal>
+        </MoleculesEtcModal>
       </template>
       <template v-else>
         <figure><img :src="sample.img" width="960" height="960"></figure>
@@ -42,7 +42,7 @@
             <p class="comment f-txt">
               {{ sample.comment }}
             </p>
-            <BtnText
+            <AtomsButtonsTextBtn
               btn-style="ghost"
               color="white"
               :link-path="sample.path"
@@ -56,14 +56,7 @@
 </template>
 
 <script>
-import BtnText from '@/components/atoms/buttons/TextBtn'
-import Modal from '@/components/atoms/etc/Modal'
-
 export default {
-  components: {
-    BtnText,
-    Modal
-  },
   data () {
     return {
       modalFlag: false,
