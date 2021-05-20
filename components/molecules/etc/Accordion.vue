@@ -6,13 +6,13 @@
       <template v-if="acoType === 'type2'">
         <button class="c-accordion_btn type2" type="button" :class="{ 'active' : isOpen }" @click="acoToggle">
           <span>{{ acoTitle }}</span>
-          <IcnArrow />
+          <AtomsIconsArrowIcn />
         </button>
       </template>
       <template v-else>
         <button class="c-accordion_btn" type="button" :class="{ 'active' : isOpen }" @click="acoToggle">
           <span>{{ acoTitle }}</span>
-          <IcnArrow />
+          <AtomsIconsArrowIcn />
         </button>
       </template>
     </component>
@@ -33,12 +33,7 @@
 </template>
 
 <script>
-import IcnArrow from '@/components/atoms/icons/ArrowIcn'
-
 export default {
-  components: {
-    IcnArrow
-  },
   props: {
     acoTitleTag: {
       type: String,

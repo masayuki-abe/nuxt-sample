@@ -1,13 +1,13 @@
 <template>
   <main>
     <section id="c-front-page_box01" class="c-box">
-      <Tit
+      <AtomsTitlesTit
         tit-tag="h2"
         tit-class="center"
         tit-txt="Nuxt.js Sample"
       />
-      <SampleLists />
-      <BtnText
+      <MoleculesListsSampleList />
+      <AtomsButtonsTextBtn
         btn-style="rounded"
         color="dark"
         link-path="sample"
@@ -16,7 +16,7 @@
     </section><!-- /c-front-page_box01 -->
 
     <section id="c-front-page_box02" class="c-box">
-      <Tit
+      <AtomsTitlesTit
         tit-tag="h2"
         tit-class="center"
         tit-txt="Api"
@@ -27,7 +27,7 @@
     </section><!-- /c-front-page_box02 -->
 
     <section id="c-front-page_box03" class="c-box">
-      <Tit
+      <AtomsTitlesTit
         tit-tag="h2"
         tit-class="center"
         tit-txt="Storage"
@@ -40,16 +40,7 @@
 </template>
 
 <script>
-import SampleLists from '@/components/molecules/lists/SampleList'
-import BtnText from '@/components/atoms/buttons/TextBtn'
-import Tit from '../atoms/titles/Tit.vue'
-
 export default {
-  components: {
-    SampleLists,
-    BtnText,
-    Tit
-  },
   data () {
     return {
       modalFlag: false
