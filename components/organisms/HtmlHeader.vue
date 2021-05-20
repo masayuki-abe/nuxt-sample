@@ -6,7 +6,7 @@
           Nuxt Sample
         </Nuxt-link>
       </h1>
-      <BtnHamburger
+      <AtomsButtonsHamburger
         :class="{active : gnaviOn}"
         @btnMenu="toggleMenu"
       />
@@ -21,7 +21,7 @@
         v-if="gnaviOn || !isMobile"
         class="gnavi"
       >
-        <LstNavi
+        <MoleculesListsNaviList
           @naviLinkSp="toggleMenu"
         />
       </nav>
@@ -30,14 +30,7 @@
 </template>
 
 <script>
-import BtnHamburger from '@/components/atoms/buttons/Hamburger'
-import LstNavi from '@/components/molecules/lists/NaviList'
-
 export default {
-  components: {
-    BtnHamburger,
-    LstNavi
-  },
   data () {
     return {
       gnaviOn: false,

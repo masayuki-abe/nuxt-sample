@@ -6,7 +6,7 @@
     @click="openModal"
   >
     <span>{{ linkText }}</span>
-    <IcnModalOpen
+    <AtomsIconsModalOpen
       :class="[color]"
     />
   </p>
@@ -22,12 +22,7 @@
 </template>
 
 <script>
-import IcnModalOpen from '@/components/atoms/icons/ModalOpen'
-
 export default {
-  components: {
-    IcnModalOpen
-  },
   props: {
     btnStyle: {
       type: String,
