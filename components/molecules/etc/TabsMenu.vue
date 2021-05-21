@@ -7,10 +7,6 @@
 <script>
 export default {
   props: {
-    tabMenuClass: {
-      type: String,
-      default: ''
-    },
     tabMenuName: {
       type: String,
       default: ''
