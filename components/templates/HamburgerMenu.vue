@@ -39,7 +39,8 @@
             HtmlHeader.vue</a> by masayuki abe (<a href="https://codepen.io/masayuki-abe">@masayuki-abe</a>)
             on <a href="https://codepen.io">CodePen</a>.</span>
         </p>
-        <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js" />        <dl class="c-list_point f-txt">
+        <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js" />
+        <dl class="c-list_point f-txt">
           <dt>ポイント</dt>
           <dd>
             <ul>
