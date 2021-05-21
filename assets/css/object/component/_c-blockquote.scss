@@ -1,7 +1,7 @@
 .c-blockquote{
   padding: 1em;
   background-color: $black;
-  color: $white;
+  color: $gray;
   &_body{
     @include fontSet(32, 48, 100, $tab);
     overflow-wrap: break-word;
