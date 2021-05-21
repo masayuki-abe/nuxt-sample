@@ -2,17 +2,25 @@
   <main>
     <section id="p-tabs-menu_box01">
       <div class="c-box">
-        <h2>Tabs Menu</h2>
+        <AtomsTitlesTit
+          tit-tag="h2"
+          tit-class=""
+          tit-txt="Tabs Menu"
+        />
         <p class="f-txt">
           あまり好きじゃない。スマホのときみづらくない？っていつも思う。<br>
           PCはタブメニューでスマホはアコーディオンとかって、Vue＋1ソースでやるとしたらどうやるんだろう……？
         </p>
       </div>
-    </section>
+    </section><!-- /box01 -->
 
     <section id="p-tabs-menu_box02">
       <div class="c-box">
-        <h3>PC・スマホともにタブ</h3>
+        <AtomsTitlesTit
+          tit-tag="h3"
+          tit-class="middle"
+          tit-txt="PC・スマホともにタブ"
+        />
         <p class="f-txt">
           配列処理で、展開するコンテンツの中身を自由に書けるようにしておけば良いかな、と。<br>
           なおここでは、メニューとコンテンツのコンポネントをわけて別々にしている。
@@ -21,7 +29,6 @@
           <ul class="c-tab_menu">
             <li v-for="(tab, index) in tabs" :key="tab.tabId" class="c-tab_menu--item" :class="[ activetab === (index + 1) ? 'active' : '', tab.tabClass ]" @click="activetab = (index + 1)">
               <MoleculesEtcTabsMenu
-                :tab-menu-class="tab.tabClass"
                 :tab-menu-name="tab.tabName"
               />
             </li>
@@ -37,11 +44,15 @@
           </div>
         </div>
       </div>
-    </section>
+    </section><!-- /box02 -->
 
     <section id="p-tabs-menu_box03">
       <div class="c-box">
-        <h3>PCでのみタブ</h3>
+        <AtomsTitlesTit
+          tit-tag="h3"
+          tit-class="middle"
+          tit-txt="PCのみでタブ"
+        />
         <p class="f-txt">
           PCではタブ表示して、スマホでは単純に縦並びに。こっちの方が文章構造的にはグッドではなかろうか。<br>
           読み込むコンポネントは上記と別。
@@ -61,7 +72,170 @@
           </li>
         </ul>
       </div>
-    </section>
+    </section><!-- /box03 -->
+
+    <section id="p-tabs-menu_box04">
+      <div class="c-box">
+        <AtomsTitlesTit
+          tit-tag="h3"
+          tit-class="middle"
+          tit-txt="TabsMenu.vue"
+        />
+        <p class="f-txt">
+          PC・スマホ共通でタブ切り替えにする場合、メニュー部分とコンテンツ部分をわけている。<br>
+          これは、メニュー部分のコンポネント。
+        </p>
+        <AtomsEtcBlockQuote
+          blockquote-cite="https://github.com/masayuki-abe/nuxt-sample/blob/master/components/molecules/etc/TabsMenu.vue"
+          blockquote-title="components/molecules/etc/TabsMenu.vue"
+        />
+        <p
+          class="codepen"
+          data-height="265"
+          data-theme-id="dark"
+          data-default-tab="js"
+          data-user="masayuki-abe"
+          data-slug-hash="vYxgaZY"
+          style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+          data-pen-title="MoleculesEtcTabsMenu.vue"
+        >
+          <span>See the Pen <a href="https://codepen.io/masayuki-abe/pen/vYxgaZY">
+            MoleculesEtcTabsMenu.vue</a> by masayuki abe (<a href="https://codepen.io/masayuki-abe">@masayuki-abe</a>)
+            on <a href="https://codepen.io">CodePen</a>.</span>
+        </p>
+        <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js" />
+        <dl class="c-list_point f-txt">
+          <dt>ポイント</dt>
+          <dd>
+            <ul>
+              <li>なんてことはなく、メニュー部分のテキストを<code>props</code>で配列から受け取っているだけ</li>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+    </section><!-- /box04 -->
+
+    <section id="p-tabs-menu_box05">
+      <div class="c-box">
+        <AtomsTitlesTit
+          tit-tag="h3"
+          tit-class="middle"
+          tit-txt="TabsContent.vue"
+        />
+        <p class="f-txt">
+          PC・スマホ共通でタブ切り替えにする場合、メニュー部分とコンテンツ部分をわけている。<br>
+          これは、コンテンツ部分のコンポネント。
+        </p>
+        <AtomsEtcBlockQuote
+          blockquote-cite="https://github.com/masayuki-abe/nuxt-sample/blob/master/components/molecules/etc/TabsContent.vue"
+          blockquote-title="components/molecules/etc/TabsContent.vue"
+        />
+        <p
+          class="codepen"
+          data-height="265"
+          data-theme-id="dark"
+          data-default-tab="js"
+          data-user="masayuki-abe"
+          data-slug-hash="QWpdBqM"
+          style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+          data-pen-title="MoleculesEtcTabsContent.vue"
+        >
+          <span>See the Pen <a href="https://codepen.io/masayuki-abe/pen/QWpdBqM">
+            MoleculesEtcTabsContent.vue</a> by masayuki abe (<a href="https://codepen.io/masayuki-abe">@masayuki-abe</a>)
+            on <a href="https://codepen.io">CodePen</a>.</span>
+        </p>
+        <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js" />
+        <dl class="c-list_point f-txt">
+          <dt>ポイント</dt>
+          <dd>
+            <ul>
+              <li>こちらもなんてことはなく、コンテンツを<code>props</code>で配列から受け取っているだけ</li>
+              <li>中身はHTMLを自由に書けるように<code>v-html</code>を採用。<code>v-html</code>はあまり推奨されていないようなので、よりより代替案を検討する必要がある</li>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+    </section><!-- /box05 -->
+
+    <section id="p-tabs-menu_box06">
+      <div class="c-box">
+        <AtomsTitlesTit
+          tit-tag="h3"
+          tit-class="middle"
+          tit-txt="TabsResponsive.vue"
+        />
+        <p class="f-txt">
+          PCのみでタブ切り替えを行う文章構造意識版のコンポネント
+        </p>
+        <AtomsEtcBlockQuote
+          blockquote-cite="https://github.com/masayuki-abe/nuxt-sample/blob/master/components/molecules/etc/TabsResponsive.vue"
+          blockquote-title="components/molecules/etc/TabsResponsive.vue"
+        />
+        <p
+          class="codepen"
+          data-height="265"
+          data-theme-id="dark"
+          data-default-tab="js"
+          data-user="masayuki-abe"
+          data-slug-hash="YzZNjaP"
+          style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+          data-pen-title="MoleculesEtcTabsResponsive.vue"
+        >
+          <span>See the Pen <a href="https://codepen.io/masayuki-abe/pen/YzZNjaP">
+            MoleculesEtcTabsResponsive.vue</a> by masayuki abe (<a href="https://codepen.io/masayuki-abe">@masayuki-abe</a>)
+            on <a href="https://codepen.io">CodePen</a>.</span>
+        </p>
+        <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js" />
+        <dl class="c-list_point f-txt">
+          <dt>ポイント</dt>
+          <dd>
+            <ul>
+              <li>関数<sode>tabs</sode>でPC版のみコンテンツの高さを取得してタブ切り替えを実現</li>
+              <li>関数<code>tabs</code>では<code>$refs</code>を採用しているため<code>mounted</code>後にしか動作しない。よりより代替案を検討する必要がある</li>
+            </ul>
+          </dd>
+        </dl>
+      </div>
+    </section><!-- /box06 -->
+
+    <section id="p-tabs-menu_box07">
+      <div class="c-box">
+        <AtomsTitlesTit
+          tit-tag="h3"
+          tit-class="middle"
+          tit-txt="TabsMenu.vue"
+        />
+        <p class="f-txt">
+          上記コンポネントを読み込んで実際に動作させるサンプル
+        </p>
+        <AtomsEtcBlockQuote
+          blockquote-cite="https://github.com/masayuki-abe/nuxt-sample/blob/master/components/molecules/etc/TabsResponsive.vue"
+          blockquote-title="components/molecules/etc/TabsResponsive.vue"
+        />
+        <p
+          class="codepen"
+          data-height="265"
+          data-theme-id="dark"
+          data-default-tab="js"
+          data-user="masayuki-abe"
+          data-slug-hash="abJpjKM"
+          style="height: 265px; box-sizing: border-box; display: flex; align-items: center; justify-content: center; border: 2px solid; margin: 1em 0; padding: 1em;"
+          data-pen-title="TemplatesTabsMenu"
+        >
+          <span>See the Pen <a href="https://codepen.io/masayuki-abe/pen/abJpjKM">
+            TemplatesTabsMenu</a> by masayuki abe (<a href="https://codepen.io/masayuki-abe">@masayuki-abe</a>)
+            on <a href="https://codepen.io">CodePen</a>.</span>
+        </p>
+        <script async src="https://cpwebassets.codepen.io/assets/embed/ei.js" />
+      </div>
+    </section><!-- /box07 -->
+
+    <AtomsButtonsTextBtn
+      btn-style="rounded back"
+      color="dark"
+      link-path=""
+      link-text="Back to Front"
+    />
   </main>
 </template>
 
@@ -140,8 +314,19 @@ export default {
 </script>
 
 <style lang="scss">
+.c-btn_text.back{
+  width: 50%;
+  margin: 0 auto;
+}
 #p-tabs-menu{
+  &_box01{
+    padding-bottom: per(100, $tab);
+  }
   &_box02{
+    padding-bottom: per(100, $tab);
+    .f-txt{
+      padding-bottom: 1em;
+    }
     .c-tab{
       &_menu{
         border-bottom: 2px $gray solid;
@@ -176,6 +361,10 @@ export default {
     }
   }
   &_box03{
+    padding-bottom: per(100, $tab);
+    .f-txt{
+      padding-bottom: 1em;
+    }
     ul{
       list-style: none;
       border: 2px $gray solid;
@@ -206,6 +395,12 @@ export default {
           }
         }
       }
+    }
+  }
+  &_box04,&_box05,&_box06,&_box07{
+    padding-bottom: per(100, $tab);
+    .f-txt{
+      padding-bottom: 1em;
     }
   }
 }
@@ -276,7 +471,7 @@ export default {
             transform: translateY(-2px);
             transition: background 0.6s ease;
           }
-          .c-tab-responsive_content{
+          .c-tab-responsive_content--block{
             @include fontSet(16, 24, 0, $lap);
             padding: 1em;
             border: 2px $black solid;
