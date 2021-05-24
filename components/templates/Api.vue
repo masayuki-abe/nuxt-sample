@@ -7,38 +7,48 @@
           tit-class=""
           tit-txt="Api"
         />
-        <p> Search：</p><form @submit.prevent="getResult(query)">
-          <input v-model="query" type="text" placeholder="Type in your search">
-          <div class="book_wrapper">
-            <div v-for="item in items" :key="item.title" class="book_card">
-              <div class="row no-gutters">
-                <div class="col-md-4">
-                  <img class="card-img" :src="item.volumeInfo.imageLinks.thumbnail">
+        <p class="f-txt">
+          GoogleBooksAPIでISBNに限定した検索を行い、その内容をローカルストレージに保存する。
+        </p>
+      </div>
+    </section><!-- /box01 -->
+
+    <section id="p-api_box02">
+      <div class="c-box">
+        <AtomsTitlesTit
+          tit-tag="h3"
+          tit-class="middle"
+          tit-txt="Search for ISBNs on Google Books"
+        />
+        <p> ISBN検索：</p>
+        <form @submit.prevent="getResult(query)">
+          <input v-model="query" type="text" placeholder="ISBN10 / ISBN13">
+          <div v-for="item in items" :key="item.id">
+            <div>
+              <div>
+                <img :src="item.volumeInfo.imageLinks.thumbnail">
+              </div>
+              <div>
+                <div>
+                  <h5>
+                    {{ item.volumeInfo.title }}
+                  </h5>
+                  <p>
+                    {{ item.volumeInfo.authors }}
+                  </p>
+                  <p>
+                    <small>{{ item.volumeInfo.publisher }}</small>
+                  </p>
                 </div>
-
-                <div class="col-md-8">
-                  <div class="card-body">
-                    <h5 class="card-title">
-                      {{ item.volumeInfo.title }}
-                    </h5>
-                    <p class="card-text">
-                      {{ item.volumeInfo.authors }}
-                    </p>
-                    <p class="card-text">
-                      <small class="text-muted">{{ item.volumeInfo.publisher }}</small>
-                    </p>
-                  </div>
-
-                  <div class="book_button">
-                    <a :href="item.volumeInfo.previewLink" class="waves-effect waves-light btn" target="_blank">show detail</a>
-                  </div>
+                <div>
+                  <a :href="item.volumeInfo.previewLink" target="_blank">show detail</a>
                 </div>
               </div>
             </div>
           </div>
         </form>
       </div>
-    </section>
+    </section><!-- /box02 -->
   </main>
 </template>
 
@@ -57,8 +67,7 @@ export default {
   },
   methods: {
     getResult (query) {
-      axios.get('https://www.googleapis.com/books/v1/volumes?q=search' + query).then((response) => {
-        console.log(response.data)
+      axios.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + query).then((response) => {
         this.items = response.data.items
       })
     }
