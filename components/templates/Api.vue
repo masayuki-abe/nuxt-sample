@@ -20,9 +20,11 @@
           tit-class="middle"
           tit-txt="Search for ISBNs on Google Books"
         />
-        <p> ISBN検索：</p>
+        <p>ISBN検索：</p>
+        <input v-model="isbn"><input :value="isbn">
         <form @submit.prevent="getResult(query)">
           <input v-model="query" type="text" placeholder="ISBN10 / ISBN13">
+          <input type="submit" value="検索">
           <div v-for="item in items" :key="item.id">
             <div>
               <div>
@@ -59,17 +61,17 @@ export default {
   data () {
     return {
       query: '',
-      items: []
+      items: [],
+      isbn: ''
     }
   },
-  mounted () {
-    this.getResult()
-  },
-  methods: {
-    getResult (query) {
-      axios.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + query).then((response) => {
-        this.items = response.data.items
-      })
+  watch: {
+    isbn (isbnCode) {
+      if (this.isbn) {
+        axios.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + isbnCode).then((response) => {
+          this.items = response.data.items
+        })
+      }
     }
   }
 }
