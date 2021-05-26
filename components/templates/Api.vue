@@ -30,11 +30,6 @@
           </p>
         </template>
         <div v-for="item in items" :key="item.id" class="p-api_box02--result">
-          <input type="hidden" :value="itemId" @input="itemId=item.id">
-          <input type="hidden" :value="item.volumeInfo.previewLink" @input="itemLink=item.volumeInfo.previewLink">
-          <input type="hidden" :value="item.volumeInfo.imageLinks.thumbnail" @input="itemImg=item.volumeInfo.imageLinks.thumbnail">
-          <input type="hidden" :value="item.volumeInfo.authors" @input="itemAuthors=item.volumeInfo.authors">
-          <input type="hidden" :value="item.volumeInfo.publisher" @input="itemPublisher=item.volumeInfo.publisher">
           <div class="c-bookinfo">
             <figure class="c-bookinfo_thumb">
               <a :href="item.volumeInfo.previewLink" target="_blank">
@@ -94,30 +89,34 @@
           tit-txt="Your favarite Books"
         />
         <ul class="c-booklist">
-          <li v-for="book in books" :key="book.title">
+          <li v-for="book in books" :key="book.id">
             <figure class="c-booklist_thumb">
-              <a :href="book.volumeInfo.previewLink" target="_blank">
-                <img :src="book.volumeInfo.imageLinks.thumbnail">
+              <a :href="book.link" target="_blank">
+                <img :src="book.img">
               </a>
             </figure>
             <dl class="c-booklist_data">
-              <dt>{{ book.volumeInfo.title }}</dt>
+              <dt>{{ book.title }}</dt>
               <dd>
                 <ul>
                   <li>
                     <dl>
                       <dt>作者</dt>
-                      <dd>{{ book.volumeInfo.authors }}</dd>
+                      <dd>{{ book.authors }}</dd>
                     </dl>
                   </li>
                   <li>
                     <dl>
                       <dt>出版社</dt>
-                      <dd>{{ book.volumeInfo.publisher }}</dd>
+                      <dd>{{ book.publisher }}</dd>
                     </dl>
                   </li>
                 </ul>
               </dd>
+            </dl>
+            <dl class="c-booklist_comment">
+              <dt>■コメント</dt>
+              <dd>{{ book.comment }}</dd>
             </dl>
           </li>
         </ul>
@@ -140,16 +139,28 @@ export default {
       books: [],
       itemComment: '',
       itemId: '',
+      itemTitle: '',
       itemLink: '',
       itemImg: '',
       itemAuthors: '',
-      itemPublisher: ''
+      itemPublisher: '',
+      hoge: '',
+      hoge2: ''
     }
   },
   watch: {
     isbn (newIsbn, oldIsbn) {
       this.message = 'Now loading...'
       this.debouncedGetAnswer()
+    }
+  },
+  mounted () {
+    if (localStorage.getItem('books')) {
+      try {
+        this.books = JSON.parse(localStorage.getItem('books'))
+      } catch (e) {
+        localStorage.removeItem('books')
+      }
     }
   },
   created () {
@@ -160,20 +171,21 @@ export default {
       if (this.isbn) {
         axios.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + this.isbn).then((response) => {
           this.items = response.data.items
+          this.itemId = response.data.items[0].id
+          this.itemLink = response.data.items[0].volumeInfo.previewLink
+          this.itemTitle = response.data.items[0].volumeInfo.title
+          this.itemImg = response.data.items[0].volumeInfo.imageLinks.thumbnail
+          this.itemAuthors = response.data.items[0].volumeInfo.authors
+          this.itemPublisher = response.data.items[0].volumeInfo.publisher
         })
       }
       this.message = ''
-      console.log('ID[' + this.itemId + ']')
-      console.log('LINK[' + this.itemLink + ']')
-      console.log('IMG[' + this.itemImg + ']')
-      console.log('AUTHORS[' + this.itemAuthors + ']')
-      console.log('PUBLISHER[' + this.itemPublisher + ']')
-      console.log('COMMENT[' + this.itemComment + ']')
     },
     saveBtn () {
       let saveGroup = {
         id: this.itemId,
         link: this.itemLink,
+        title: this.itemTitle,
         img: this.itemImg,
         authors: this.itemAuthors,
         publisher: this.itemPublisher,
@@ -181,11 +193,14 @@ export default {
       }
       this.books.push(saveGroup)
       saveGroup = ''
+      this.isbn = ''
+      this.items = ''
+      this.itemComment = ''
       this.saveBook()
     },
     saveBook () {
       const parsed = JSON.stringify(this.books)
-      localStorage.setItem('bsooks', parsed)
+      localStorage.setItem('books', parsed)
     }
   }
 }
