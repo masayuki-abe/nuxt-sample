@@ -32,12 +32,12 @@
         <div v-for="item in items" :key="item.id" class="p-api_box02--result">
           <div class="c-bookinfo">
             <figure class="c-bookinfo_thumb">
-              <a :href="item.volumeInfo.previewLink" target="_blank">
-                <img :src="item.volumeInfo.imageLinks.thumbnail">
+              <a :href="itemLink" target="_blank">
+                <img :src="itemImg">
               </a>
             </figure>
             <dl class="c-bookinfo_data">
-              <dt>{{ item.volumeInfo.title }}</dt>
+              <dt>{{ itemTitle }}</dt>
               <dd>
                 <p class="c-bookinfo_data--intro">
                   {{ item.volumeInfo.description }}
@@ -46,13 +46,17 @@
                   <li>
                     <dl>
                       <dt>作者</dt>
-                      <dd>{{ item.volumeInfo.authors }}</dd>
+                      <dd>
+                        <p v-for="(author, index) in itemAuthors" :key="index">
+                          {{ author }}
+                        </p>
+                      </dd>
                     </dl>
                   </li>
                   <li>
                     <dl>
                       <dt>出版社</dt>
-                      <dd>{{ item.volumeInfo.publisher }}</dd>
+                      <dd>{{ itemPublisher }}</dd>
                     </dl>
                   </li>
                 </ul>
@@ -102,7 +106,11 @@
                   <li>
                     <dl>
                       <dt>作者</dt>
-                      <dd>{{ book.authors }}</dd>
+                      <dd>
+                        <p v-for="(bookAuthor, index) in book.authors" :key="index">
+                          {{ bookAuthor }}
+                        </p>
+                      </dd>
                     </dl>
                   </li>
                   <li>
@@ -142,7 +150,7 @@ export default {
       itemTitle: '',
       itemLink: '',
       itemImg: '',
-      itemAuthors: '',
+      itemAuthors: [],
       itemPublisher: '',
       hoge: '',
       hoge2: ''
