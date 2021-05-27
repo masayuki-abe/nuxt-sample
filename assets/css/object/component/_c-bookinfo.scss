@@ -1,0 +1,128 @@
+.c-bookinfo{
+  @include dflex(sb, fs);
+  &_thumb{
+    width: 30%;
+    padding-bottom: per(10, $tab);
+  }
+  &_data{
+    width: 67%;
+    padding-bottom: per(10, $tab);
+    &--title{
+      @include fontSet(36, 42, 100, $tab);
+      padding: 0.2em 0 0.5em;
+      font-weight: bold;
+    }
+    &--detail{
+      ul{
+        list-style: none;
+        li{
+          @include fontSet(28, 36, 40, $tab);
+          margin-bottom: 0.5em;
+          padding: 0 0.2em 0.2em;
+          border-bottom: 1px $gray dotted;
+          dl{
+            @include dflex(sb, fs);
+            dt{
+              width: 20%;
+              font-weight: bold;
+            }
+            dd{
+              width: 78%;
+            }
+          }
+        }
+      }
+    }
+    &--intro{
+      @include fontSet(22, 36, 100, $tab);
+      width: 100%;
+      padding-bottom: 1em;
+    }
+    &--btn{
+      @include fontSet(22, 36, 100, $tab);
+      @include ta(center);
+      width: 100%;
+      padding-bottom: per(40, $tab);
+    }
+  }
+  &_comment{
+    @include fontSet(22, 36, 100, $tab);
+    width: 100%;
+    padding-bottom: 1em;
+    dt{
+      padding-bottom: 0.5em;
+    }
+    dd{
+      textarea{
+        @include fontSet(22, 36, 100, $tab);
+        width: 100%;
+        padding: 0.5em;
+      }
+    }
+  }
+  &_save{
+    @include ta(right);
+    width: 100%;
+    span{
+      @include fontSet(26, 16, 100, $tab);
+      @include dis(inline-block);
+      padding: 0.5em;
+      background-color: $black;
+      border-radius: 0.5em;
+      color: $white;
+    }
+  }
+}
+@include lap() {
+  .c-bookinfo{
+    &_thumb{
+      width: 20%;
+      padding-bottom: per(10, $lap);
+    }
+    &_data{
+      width: 77%;
+      padding-bottom: per(10, $lap);
+      &--title{
+        @include fontSet(32, 48, 100, $lap);
+      }
+      &--detail{
+        ul{
+          li{
+            @include fontSet(16, 32, 40, $lap);
+            dl{
+              dt{
+                width: 10%;
+              }
+              dd{
+                width: 88%;
+              }
+            }
+          }
+        }
+      }
+      &--intro{
+        @include fontSet(14, 24, 100, $lap);
+      }
+      &--btn{
+        @include fontSet(16, 16, 100, $lap);
+        padding-bottom: per(20, $lap);
+      }
+    }
+    &_comment{
+      @include fontSet(20, 20, 100, $lap);
+      dd{
+        textarea{
+          @include fontSet(16, 24, 100, $lap);
+          height: 6em;
+        }
+      }
+    }
+    &_save{
+      @include ta(right);
+      width: 100%;
+      span{
+        @include fontSet(16, 16, 100, $lap);
+      }
+    }
+  }
+}

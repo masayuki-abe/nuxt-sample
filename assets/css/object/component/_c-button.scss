@@ -72,6 +72,16 @@
       }
     }
   }
+  &--outside{
+    a{
+      @include dis(inline-block);
+      background-color: $darkGray;
+      padding: .5em 1em;
+      border-radius: 0.5em;
+      color: $white;
+      text-decoration: none;
+    }
+  }
 }
 
 @include tab() {

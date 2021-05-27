@@ -1,0 +1,98 @@
+.c-booklist{
+  @include dflex(c, fs);
+  list-style: none;
+  >li{
+    width: 32%;
+    margin-right: 2%;
+    padding-bottom: 10px;
+    &:nth-child(3n){
+      margin-right: 0;
+    }
+    &:last-child{
+      margin-right: 0;
+    }
+  }
+  &_thumb--modal{
+    width: 50%;
+    margin: 0 auto per(20, $tab);
+  }
+  &_data{
+    &--title{
+      @include fontSet(46, 52, 100, $tab);
+      margin-bottom: 0.5em;
+      padding: 0 0.2em 0.5em;
+      border-bottom: 2px $dark solid;
+      font-weight: bold;
+    }
+    dd{
+      ul{
+        @include fontSet(32,48,100,$tab);
+        list-style: none;
+        padding: 0 0.5em;
+        li{
+          margin-bottom: 0.5em;
+          padding: 0 0.5em 0.5em;
+          border-bottom: 1px $gray solid;
+          dl{
+            @include dflex(sb,fs);
+            dt{
+              width: 20%;
+            }
+            dd{
+              width: 78%;
+            }
+          }
+        }
+      }
+    }
+  }
+  &_comment{
+    @include fontSet(32,48,100,$tab);
+    padding-top: 0.5em;
+  }
+  &_btn{
+    @include ta(center);
+    padding-top: 1em;
+  }
+}
+@include lap() {
+  .c-booklist{
+    >li{
+      width: 16%;
+      margin-right: 0.5%;
+      &:nth-child(3n){
+        margin-right: 0.5%;
+      }
+      &:nth-child(5n){
+        margin-right: 0;
+      }
+    }
+    &_thumb--modal{
+      width: 20%;
+      margin: 0;
+    }
+    &_data{
+      width: 75%;
+      &--title{
+        @include fontSet(32, 48, 100, $lap);
+        padding: 0 0.5em 0.5em;
+      }
+      dd{
+        ul{
+          @include fontSet(16,24,100,$lap);
+          padding: 0 1em;
+        }
+      }
+    }
+    &_comment{
+      @include fontSet(16,24,100,$lap);
+      width: 100%;
+      padding-top: 0.5em;
+    }
+    &_btn{
+      width: 100%;
+      @include ta(center);
+      padding-top: 1em;
+    }
+  }
+}

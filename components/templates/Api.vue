@@ -37,11 +37,10 @@
               </a>
             </figure>
             <dl class="c-bookinfo_data">
-              <dt>{{ itemTitle }}</dt>
-              <dd>
-                <p class="c-bookinfo_data--intro">
-                  {{ item.volumeInfo.description }}
-                </p>
+              <dt class="c-bookinfo_data--title">
+                {{ itemTitle }}
+              </dt>
+              <dd class="c-bookinfo_data--detail">
                 <ul>
                   <li>
                     <dl>
@@ -60,15 +59,18 @@
                     </dl>
                   </li>
                 </ul>
-                <AtomsButtonsTextBtn
-                  btn-style="outside"
-                  color="dark"
-                  :link-path="item.volumeInfo.previewLink"
-                  link-text="詳細を見る"
-                  class="c-bookinfo_data--btn"
-                />
               </dd>
             </dl>
+            <p class="c-bookinfo_data--intro">
+              {{ item.volumeInfo.description }}
+            </p>
+            <AtomsButtonsTextBtn
+              btn-style="outside"
+              color="dark"
+              :link-path="item.volumeInfo.previewLink"
+              link-text="詳細を見る"
+              class="c-bookinfo_data--btn"
+            />
             <dl class="c-bookinfo_comment">
               <dt>■コメント</dt>
               <dd>
@@ -78,69 +80,93 @@
               </dd>
             </dl>
             <p class="c-bookinfo_save" @click="saveBtn">
-              保存する
+              <span>保存する<fa :icon="faStickyNote" /></span>
             </p>
           </div>
         </div>
       </div>
     </section><!-- /box02 -->
 
-    <section id="p-app_box03">
+    <section v-if="haveBooks" id="p-api_box03">
       <div class="c-box">
         <AtomsTitlesTit
           tit-tag="h3"
           tit-class="middle"
-          tit-txt="Your favarite Books"
+          tit-txt="Your Favarite Books"
         />
         <ul class="c-booklist">
           <li v-for="book in books" :key="book.id">
-            <figure class="c-booklist_thumb">
-              <a :href="book.link" target="_blank">
-                <img :src="book.img">
-              </a>
+            <figure class="c-booklist_thumb" @click="openModal(book)">
+              <img :src="book.img">
             </figure>
-            <dl class="c-booklist_data">
-              <dt>{{ book.title }}</dt>
-              <dd>
-                <ul>
-                  <li>
-                    <dl>
-                      <dt>作者</dt>
-                      <dd>
-                        <p v-for="(bookAuthor, index) in book.authors" :key="index">
-                          {{ bookAuthor }}
-                        </p>
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>出版社</dt>
-                      <dd>{{ book.publisher }}</dd>
-                    </dl>
-                  </li>
-                </ul>
-              </dd>
-            </dl>
-            <dl class="c-booklist_comment">
-              <dt>■コメント</dt>
-              <dd>{{ book.comment }}</dd>
-            </dl>
+            <MoleculesEtcModal
+              v-if="modalFlag"
+              @close-modal="closeModal"
+            >
+              <figure class="c-booklist_thumb--modal">
+                <a :href="modalItem.link" target="_blank">
+                  <img :src="modalItem.img">
+                </a>
+              </figure>
+              <dl class="c-booklist_data">
+                <dt class="c-booklist_data--title">
+                  {{ modalItem.title }}
+                </dt>
+                <dd>
+                  <ul>
+                    <li>
+                      <dl>
+                        <dt>作者</dt>
+                        <dd>
+                          <p v-for="(bookAuthor, index) in modalItem.authors" :key="index">
+                            {{ bookAuthor }}
+                          </p>
+                        </dd>
+                      </dl>
+                    </li>
+                    <li>
+                      <dl>
+                        <dt>出版社</dt>
+                        <dd>{{ modalItem.publisher }}</dd>
+                      </dl>
+                    </li>
+                  </ul>
+                </dd>
+              </dl>
+              <dl v-if="modalItem.comment !== ''" class="c-booklist_comment">
+                <dt>■コメント</dt>
+                <dd>{{ modalItem.comment }}</dd>
+              </dl>
+              <AtomsButtonsTextBtn
+                btn-style="outside"
+                color="dark"
+                :link-path="modalItem.link"
+                link-text="詳細を見る"
+                class="c-booklist_btn"
+              />
+            </MoleculesEtcModal>
           </li>
         </ul>
       </div>
     </section><!-- /box03 -->
+
+    <AtomsButtonsTextBtn
+      btn-style="rounded back"
+      color="dark"
+      link-path=""
+      link-text="Back to Front"
+    />
   </main>
 </template>
 
 <script>
 import axios from 'axios'
 import _ from 'lodash'
+import { faStickyNote } from '@fortawesome/free-solid-svg-icons'
 
 export default {
   data () {
     return {
-      query: '',
       items: [],
       isbn: '',
       message: '',
@@ -152,8 +178,14 @@ export default {
       itemImg: '',
       itemAuthors: [],
       itemPublisher: '',
-      hoge: '',
-      hoge2: ''
+      haveBooks: false,
+      modalFlag: false,
+      modalItem: ''
+    }
+  },
+  computed: {
+    faStickyNote () {
+      return faStickyNote
     }
   },
   watch: {
@@ -166,8 +198,10 @@ export default {
     if (localStorage.getItem('books')) {
       try {
         this.books = JSON.parse(localStorage.getItem('books'))
+        this.haveBooks = true
       } catch (e) {
         localStorage.removeItem('books')
+        this.haveBooks = false
       }
     }
   },
@@ -205,11 +239,110 @@ export default {
       this.items = ''
       this.itemComment = ''
       this.saveBook()
+      this.haveBooks = true
     },
     saveBook () {
       const parsed = JSON.stringify(this.books)
       localStorage.setItem('books', parsed)
+    },
+    openModal (book) {
+      this.modalFlag = true
+      this.modalItem = book
+    },
+    closeModal () {
+      this.modalFlag = false
     }
   }
 }
 </script>
+
+<style lang="scss">
+.c-btn_text.back{
+  width: 50%;
+  margin: 0 auto;
+}
+#p-api{
+  &_box01{
+    padding-bottom: per(100, $tab);
+  }
+  &_box02{
+    padding-bottom: per(100, $tab);
+    .p-api_box02{
+      &--search{
+        padding-bottom: per(30, $tab);
+        dt{
+          @include fontSet(32, 32, 100, $tab);
+          @include ta(center);
+          padding-bottom: 1em;
+        }
+        dd{
+          @include fontSet(32, 32, 100, $tab);
+          padding: 0 1em;
+          input{
+            @include fontSet(32, 32, 100, $tab);
+            @include dis(inline-block);
+            @include ta(center);
+            width: 100%;
+            padding: 0.5em;
+            border-radius: 0.5em;
+          }
+        }
+      }
+      &--message{
+        @include fontSet(32, 32, 100, $tab);
+        @include ta(center);
+        padding-bottom: 1em;
+        color: $gray;
+      }
+    }
+  }
+  &_box03{
+    padding-bottom: per(100, $tab);
+  }
+}
+@include lap() {
+  #p-api{
+    &_box01{
+      padding-bottom: per(60, $lap);
+    }
+    &_box02{
+      padding-bottom: per(60, $lap);
+      .p-api_box02{
+        &--search{
+          padding-bottom: per(30, $lap);
+          dt{
+            @include fontSet(16, 16, 100, $lap);
+            @include ta(center);
+            padding-bottom: 1em;
+          }
+          dd{
+            @include fontSet(16, 16, 100, $lap);
+            padding: 0 1em;
+            input{
+              @include fontSet(16, 16, 100, $lap);
+              @include dis(inline-block);
+              @include ta(center);
+              width: 100%;
+              padding: 0.5em;
+              border-radius: 0.5em;
+            }
+          }
+        }
+        &--message{
+          @include fontSet(16, 16, 100, $tab);
+          @include ta(center);
+          padding-bottom: 1em;
+          color: $gray;
+        }
+      }
+    }
+    &_box03{
+      padding-bottom: per(60, $lap);
+      .c-modal_content{
+        padding: 40px;
+        @include dflex(sb,fs);
+      }
+    }
+  }
+}
+</style>

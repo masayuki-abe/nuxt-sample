@@ -11,6 +11,16 @@
     />
   </p>
   <p
+    v-else-if="btnStyle === 'outside'"
+    class="c-btn_text"
+    :class="['c-btn_text--' + btnStyle, color]"
+  >
+    <a :href="linkPath" target="_blank">
+      <span>{{ linkText }}</span>
+      <fa :icon="faExternalLinkAlt" />
+    </a>
+  </p>
+  <p
     v-else
     class="c-btn_text"
     :class="['c-btn_text--' + btnStyle, color]"
@@ -22,6 +32,8 @@
 </template>
 
 <script>
+import { faExternalLinkAlt } from '@fortawesome/free-solid-svg-icons'
+
 export default {
   props: {
     btnStyle: {
@@ -43,6 +55,11 @@ export default {
       type: String,
       required: false,
       default: 'More'
+    }
+  },
+  computed: {
+    faExternalLinkAlt () {
+      return faExternalLinkAlt
     }
   },
   methods: {
