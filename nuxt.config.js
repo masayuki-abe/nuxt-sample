@@ -52,7 +52,8 @@ export default {
   modules: [
     // https://go.nuxtjs.dev/axios
     '@nuxtjs/axios',
-    '@nuxtjs/style-resources'
+    '@nuxtjs/style-resources',
+    'nuxt-fontawesome'
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -75,5 +76,8 @@ export default {
       '~/assets/css/foundations/_f-functions.scss',
       '~/assets/css/foundations/_f-mixin.scss'
     ]
+  },
+  fontawesome: {
+    component: 'fa'
   }
 }
