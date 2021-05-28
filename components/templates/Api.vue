@@ -183,12 +183,22 @@ export default {
       modalItem: ''
     }
   },
+  head () {
+    return {
+      bodyAttrs: {
+        class: this.isModalOpen ? 'modal-on' : ''
+      }
+    }
+  },
   computed: {
     faStickyNote () {
       return faStickyNote
     },
     reverseBooks () {
       return this.books.slice().reverse()
+    },
+    isModalOpen () {
+      return this.modalFlag
     }
   },
   watch: {

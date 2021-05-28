@@ -2,7 +2,7 @@
   <transition name="modal" appear>
     <div
       class="c-modal_base"
-      @click="closeModal"
+      @click.self="closeModal"
     >
       <div class="c-modal_wrap">
         <div class="c-modal_content">
