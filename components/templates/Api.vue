@@ -180,7 +180,9 @@ export default {
       itemPublisher: '',
       haveBooks: false,
       modalFlag: false,
-      modalItem: ''
+      modalItem: '',
+      scrollY: 0,
+      saveScroll: ''
     }
   },
   head () {
@@ -217,11 +219,18 @@ export default {
         this.haveBooks = false
       }
     }
+    window.addEventListener('scroll', this.getScrollY)
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.getScrollY)
   },
   created () {
     this.debouncedGetAnswer = _.debounce(this.getAnswer, 1000)
   },
   methods: {
+    getScrollY () {
+      this.scrollY = window.scrollY
+    },
     getAnswer () {
       if (this.isbn) {
         axios.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + this.isbn).then((response) => {
@@ -261,9 +270,20 @@ export default {
     openModal (book) {
       this.modalFlag = true
       this.modalItem = book
+      this.getScrollY()
+      this.saveScroll = this.scrollY
+      console.log(this.saveScroll)
     },
     closeModal () {
       this.modalFlag = false
+      this.windowScroll()
+    },
+    windowScroll () {
+      window.scrollTo({
+        top: this.saveScroll,
+        behavior: 'smooth'
+      })
+      console.log('Then close modal ' + this.saveScroll)
     }
   }
 }

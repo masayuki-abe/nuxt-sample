@@ -8,7 +8,9 @@
         <div class="c-modal_content">
           <slot />
         </div>
-        <AtomsIconsTimeIcn />
+        <AtomsIconsTimeIcn
+          @click.native="closeModal"
+        />
       </div>
     </div>
   </transition>
