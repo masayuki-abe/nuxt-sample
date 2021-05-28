@@ -92,10 +92,10 @@
         <AtomsTitlesTit
           tit-tag="h3"
           tit-class="middle"
-          tit-txt="Your Favarite Books"
+          tit-txt="Your Favorite Books"
         />
         <ul class="c-booklist">
-          <li v-for="book in books" :key="book.id">
+          <li v-for="book in reverseBooks" :key="book.id">
             <figure class="c-booklist_thumb" @click="openModal(book)">
               <img :src="book.img">
             </figure>
@@ -186,6 +186,9 @@ export default {
   computed: {
     faStickyNote () {
       return faStickyNote
+    },
+    reverseBooks () {
+      return this.books.slice().reverse()
     }
   },
   watch: {
@@ -317,6 +320,8 @@ export default {
           }
           dd{
             @include fontSet(16, 16, 100, $lap);
+            width: 50%;
+            margin: 0 auto;
             padding: 0 1em;
             input{
               @include fontSet(16, 16, 100, $lap);
