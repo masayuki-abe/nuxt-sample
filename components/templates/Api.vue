@@ -101,6 +101,7 @@
             </figure>
             <MoleculesEtcModal
               v-if="modalFlag"
+              :top-position="saveScroll"
               @close-modal="closeModal"
             >
               <figure class="c-booklist_thumb--modal">
@@ -272,18 +273,9 @@ export default {
       this.modalItem = book
       this.getScrollY()
       this.saveScroll = this.scrollY
-      console.log(this.saveScroll)
     },
     closeModal () {
       this.modalFlag = false
-      this.windowScroll()
-    },
-    windowScroll () {
-      window.scrollTo({
-        top: this.saveScroll,
-        behavior: 'smooth'
-      })
-      console.log('Then close modal ' + this.saveScroll)
     }
   }
 }

@@ -2,6 +2,7 @@
   <transition name="modal" appear>
     <div
       class="c-modal_base"
+      :style="modalTopPosition"
       @click.self="closeModal"
     >
       <div class="c-modal_wrap">
@@ -18,6 +19,19 @@
 
 <script>
 export default {
+  props: {
+    topPosition: {
+      type: Number,
+      default: 0
+    }
+  },
+  computed: {
+    modalTopPosition () {
+      return {
+        '--top': this.topPosition + 'px'
+      }
+    }
+  },
   methods: {
     closeModal () {
       this.$emit('close-modal')
@@ -31,7 +45,7 @@ export default {
   &_base{
     position: absolute;
     left: 0;
-    top: 0;
+    top: var(--top);
     z-index: 1000;
     width: 100%;
     height: 100%;
