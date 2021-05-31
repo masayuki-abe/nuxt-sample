@@ -8,6 +8,11 @@ body{
   font-size: 1rem;
   font-family: 'Noto Sans JP', sans-serif;
   font-weight: 400;
+  &.modal-on{
+    overflow: hidden;
+    width: 100%;
+    height: 100%;
+  }
 }
 #f-wrap{
   padding: per(40, $tab) 0;
