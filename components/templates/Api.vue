@@ -101,6 +101,7 @@
             </figure>
             <MoleculesEtcModal
               v-if="modalFlag"
+              :top-position="saveScroll"
               @close-modal="closeModal"
             >
               <figure class="c-booklist_thumb--modal">
@@ -180,7 +181,16 @@ export default {
       itemPublisher: '',
       haveBooks: false,
       modalFlag: false,
-      modalItem: ''
+      modalItem: '',
+      scrollY: 0,
+      saveScroll: ''
+    }
+  },
+  head () {
+    return {
+      bodyAttrs: {
+        class: this.isModalOpen ? 'modal-on' : ''
+      }
     }
   },
   computed: {
@@ -189,6 +199,9 @@ export default {
     },
     reverseBooks () {
       return this.books.slice().reverse()
+    },
+    isModalOpen () {
+      return this.modalFlag
     }
   },
   watch: {
@@ -207,11 +220,18 @@ export default {
         this.haveBooks = false
       }
     }
+    window.addEventListener('scroll', this.getScrollY)
+  },
+  beforeDestroy () {
+    window.removeEventListener('scroll', this.getScrollY)
   },
   created () {
     this.debouncedGetAnswer = _.debounce(this.getAnswer, 1000)
   },
   methods: {
+    getScrollY () {
+      this.scrollY = window.scrollY
+    },
     getAnswer () {
       if (this.isbn) {
         axios.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + this.isbn).then((response) => {
@@ -251,6 +271,8 @@ export default {
     openModal (book) {
       this.modalFlag = true
       this.modalItem = book
+      this.getScrollY()
+      this.saveScroll = this.scrollY
     },
     closeModal () {
       this.modalFlag = false
