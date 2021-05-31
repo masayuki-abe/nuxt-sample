@@ -24,10 +24,6 @@ export default {
         {
           path: '/api',
           name: 'Api'
-        },
-        {
-          path: '/storage',
-          name: 'Storage'
         }
       ]
       return navi

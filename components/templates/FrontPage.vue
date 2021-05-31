@@ -22,8 +22,14 @@
         tit-txt="Api"
       />
       <p class="f-txt">
-        Comming Soon...
+        GoogleBooksAPIを利用してISBNコード検索、感想をローカルストレージに保存する。
       </p>
+      <AtomsButtonsTextBtn
+        btn-style="rounded"
+        color="dark"
+        link-path="api"
+        link-text="More"
+      />
     </section><!-- /c-front-page_box02 -->
 
     <section id="c-front-page_box03" class="c-box">
@@ -75,6 +81,7 @@ export default {
     }
     .f-txt{
       @include ta(center);
+      padding-bottom: 1em;
       color: $gray;
     }
   }
@@ -134,6 +141,15 @@ export default {
 }
 
 @include lap() {
+#c-front-page{
+  &_box02{
+    .c-btn_text{
+      width: 50%;
+      margin: 0 auto;
+    }
+  }
+}
+
 .c-modal{
   dl{
     dd{
