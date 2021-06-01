@@ -16,31 +16,22 @@
     </section><!-- /c-front-page_box01 -->
 
     <section id="c-front-page_box02" class="c-box">
-      <AtomsTitlesTit
-        tit-tag="h2"
-        tit-class="center"
-        tit-txt="Api"
-      />
-      <p class="f-txt">
-        GoogleBooksAPIを利用してISBNコード検索、感想をローカルストレージに保存する。
-      </p>
-      <AtomsButtonsTextBtn
-        btn-style="rounded"
-        color="dark"
-        link-path="api"
-        link-text="More"
-      />
-    </section><!-- /c-front-page_box02 -->
-
-    <section id="c-front-page_box03" class="c-box">
-      <AtomsTitlesTit
-        tit-tag="h2"
-        tit-class="center"
-        tit-txt="Storage"
-      />
-      <p class="f-txt">
-        Comming Soon...
-      </p>
+      <div class="c-front-page_box02--inner">
+        <AtomsTitlesTit
+          tit-tag="h2"
+          tit-class="center"
+          tit-txt="Api"
+        />
+        <p class="f-txt">
+          GoogleBooksAPIを利用してISBNコード検索、感想をローカルストレージに保存する。
+        </p>
+        <AtomsButtonsTextBtn
+          btn-style="rounded"
+          color="dark"
+          link-path="api"
+          link-text="More"
+        />
+      </div>
     </section><!-- /c-front-page_box02 -->
   </main>
 </template>
@@ -74,15 +65,19 @@ export default {
   }
   &_box02{
     margin-bottom: per(50, $tab);
-    padding: per(40, $tab);
-    background-color: $darkGray;
+    background: url(/images/sample/api.jpg) no-repeat center center;
+    background-size: cover;
+    .c-front-page_box02--inner{
+      padding: per(60, $tab) per(40, $tab);
+      background-color: rgba($darkGray, .7);
+    }
     .c-title{
       color: $white;
     }
     .f-txt{
       @include ta(center);
       padding-bottom: 1em;
-      color: $gray;
+      color: $white;
     }
   }
   &_box03{
