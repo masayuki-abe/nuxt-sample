@@ -31,7 +31,18 @@
           </p>
         </template>
         <div v-for="item in items" :key="item.id" class="p-api_box02--result">
-          <div class="c-bookinfo">
+          <MoleculesEtcSearchIsbnResult
+            v-model="itemComment"
+            :item-link="itemLink"
+            :item-img="itemImg"
+            :item-title="itemTitle"
+            :item-authors="itemAuthors"
+            :item-publisher="itemPublisher"
+            :item-description="item.volumeInfo.description"
+            :item-comment="itemComment"
+            @saveBtn="saveBtn"
+          />
+          <!-- <div class="c-bookinfo">
             <figure class="c-bookinfo_thumb">
               <a :href="itemLink" target="_blank">
                 <img :src="itemImg">
@@ -83,7 +94,7 @@
             <p class="c-bookinfo_save" @click="saveBtn">
               <span>保存する<fa :icon="faStickyNote" /></span>
             </p>
-          </div>
+          </div> -->
         </div>
       </div>
     </section><!-- /box02 -->

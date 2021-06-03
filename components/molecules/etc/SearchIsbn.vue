@@ -1,5 +1,5 @@
 <template>
-  <input type="text" placeholder="ISBN10 or ISBN13" v-model="inputIsbn">
+  <input v-model="inputIsbn" type="text" placeholder="ISBN10 or ISBN13">
 </template>
 
 <script>
@@ -12,13 +12,13 @@ export default {
   },
   computed: {
     inputIsbn: {
-      get() {
-        return this.value;
+      get () {
+        return this.value
       },
-      set(newValue) {
-        this.$emit("input", newValue);
-      },
-    },
+      set (newValue) {
+        this.$emit('input', newValue)
+      }
+    }
   }
 }
 </script>
