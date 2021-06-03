@@ -54,7 +54,7 @@
           tit-txt="Your Favorite Books"
         />
         <ul class="c-booklist">
-          <li v-for="book in reverseBooks" :key="book.id">
+          <li v-for="(book, index) in reverseBooks" :key="book.id">
             <MoleculesEtcModalBook
               :book-img="book.img"
               :book-link="book.link"
@@ -62,6 +62,8 @@
               :book-authors="book.authors"
               :book-publisher="book.publisher"
               :book-comment="book.comment"
+              @delete-btn="deleteBtn(index)"
+              @click.native="countIndex(index)"
             />
           </li>
         </ul>
@@ -164,6 +166,14 @@ export default {
     saveBook () {
       const parsed = JSON.stringify(this.books)
       localStorage.setItem('books', parsed)
+    },
+    deleteBtn (x) {
+      this.books.splice(x, 1)
+      this.saveBook()
+      console.log(x)
+    },
+    countIndex (hoge) {
+      console.log(hoge)
     }
   }
 }

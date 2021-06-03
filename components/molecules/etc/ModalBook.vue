@@ -49,6 +49,13 @@
         link-text="詳細を見る"
         class="c-booklist_btn"
       />
+      <AtomsButtonsTextBtn
+        btn-style="trash"
+        color="red"
+        link-text="本棚から削除する"
+        class="c-booklist_btn--trash"
+        @click.native="deleteBook"
+      />
     </MoleculesEtcModal>
   </div>
 </template>
@@ -119,6 +126,9 @@ export default {
     },
     closeModal () {
       this.modalFlag = false
+    },
+    deleteBook () {
+      this.$emit('delete-btn')
     }
   }
 }
