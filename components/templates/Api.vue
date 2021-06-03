@@ -22,7 +22,8 @@
         />
         <dl class="p-api_box02--search">
           <dt>ISBN検索</dt>
-          <dd><input v-model="isbn" type="text" placeholder="ISBN10 or ISBN13"></dd>
+          <dd><MoleculesEtcSearchIsbn v-model="isbn" /></dd>
+          <!-- <dd><input v-model="isbn" type="text" placeholder="ISBN10 or ISBN13"></dd> -->
         </dl>
         <template v-if="message">
           <p class="p-api_box02--message">
@@ -30,59 +31,17 @@
           </p>
         </template>
         <div v-for="item in items" :key="item.id" class="p-api_box02--result">
-          <div class="c-bookinfo">
-            <figure class="c-bookinfo_thumb">
-              <a :href="itemLink" target="_blank">
-                <img :src="itemImg">
-              </a>
-            </figure>
-            <dl class="c-bookinfo_data">
-              <dt class="c-bookinfo_data--title">
-                {{ itemTitle }}
-              </dt>
-              <dd class="c-bookinfo_data--detail">
-                <ul>
-                  <li>
-                    <dl>
-                      <dt>作者</dt>
-                      <dd>
-                        <p v-for="(author, index) in itemAuthors" :key="index">
-                          {{ author }}
-                        </p>
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>出版社</dt>
-                      <dd>{{ itemPublisher }}</dd>
-                    </dl>
-                  </li>
-                </ul>
-              </dd>
-            </dl>
-            <p class="c-bookinfo_data--intro">
-              {{ item.volumeInfo.description }}
-            </p>
-            <AtomsButtonsTextBtn
-              btn-style="outside"
-              color="dark"
-              :link-path="item.volumeInfo.previewLink"
-              link-text="詳細を見る"
-              class="c-bookinfo_data--btn"
-            />
-            <dl class="c-bookinfo_comment">
-              <dt>■コメント</dt>
-              <dd>
-                <textarea
-                  v-model="itemComment"
-                />
-              </dd>
-            </dl>
-            <p class="c-bookinfo_save" @click="saveBtn">
-              <span>保存する<fa :icon="faStickyNote" /></span>
-            </p>
-          </div>
+          <MoleculesEtcSearchIsbnResult
+            v-model="itemComment"
+            :item-link="itemLink"
+            :item-img="itemImg"
+            :item-title="itemTitle"
+            :item-authors="itemAuthors"
+            :item-publisher="itemPublisher"
+            :item-description="item.volumeInfo.description"
+            :item-comment="itemComment"
+            @saveBtn="saveBtn"
+          />
         </div>
       </div>
     </section><!-- /box02 -->
@@ -95,57 +54,16 @@
           tit-txt="Your Favorite Books"
         />
         <ul class="c-booklist">
-          <li v-for="book in reverseBooks" :key="book.id">
-            <figure class="c-booklist_thumb" @click="openModal(book)">
-              <img :src="book.img">
-            </figure>
-            <MoleculesEtcModal
-              v-if="modalFlag"
-              :top-position="saveScroll"
-              @close-modal="closeModal"
-            >
-              <figure class="c-booklist_thumb--modal">
-                <a :href="modalItem.link" target="_blank">
-                  <img :src="modalItem.img">
-                </a>
-              </figure>
-              <dl class="c-booklist_data">
-                <dt class="c-booklist_data--title">
-                  {{ modalItem.title }}
-                </dt>
-                <dd>
-                  <ul>
-                    <li>
-                      <dl>
-                        <dt>作者</dt>
-                        <dd>
-                          <p v-for="(bookAuthor, index) in modalItem.authors" :key="index">
-                            {{ bookAuthor }}
-                          </p>
-                        </dd>
-                      </dl>
-                    </li>
-                    <li>
-                      <dl>
-                        <dt>出版社</dt>
-                        <dd>{{ modalItem.publisher }}</dd>
-                      </dl>
-                    </li>
-                  </ul>
-                </dd>
-              </dl>
-              <dl v-if="modalItem.comment !== ''" class="c-booklist_comment">
-                <dt>■コメント</dt>
-                <dd>{{ modalItem.comment }}</dd>
-              </dl>
-              <AtomsButtonsTextBtn
-                btn-style="outside"
-                color="dark"
-                :link-path="modalItem.link"
-                link-text="詳細を見る"
-                class="c-booklist_btn"
-              />
-            </MoleculesEtcModal>
+          <li v-for="(book, index) in books" :key="book.id">
+            <MoleculesEtcModalBook
+              :book-img="book.img"
+              :book-link="book.link"
+              :book-title="book.title"
+              :book-authors="book.authors"
+              :book-publisher="book.publisher"
+              :book-comment="book.comment"
+              @delete-btn="deleteBtn(index)"
+            />
           </li>
         </ul>
       </div>
@@ -180,28 +98,12 @@ export default {
       itemAuthors: [],
       itemPublisher: '',
       haveBooks: false,
-      modalFlag: false,
-      modalItem: '',
-      scrollY: 0,
-      saveScroll: ''
-    }
-  },
-  head () {
-    return {
-      bodyAttrs: {
-        class: this.isModalOpen ? 'modal-on' : ''
-      }
+      modalItem: ''
     }
   },
   computed: {
     faStickyNote () {
       return faStickyNote
-    },
-    reverseBooks () {
-      return this.books.slice().reverse()
-    },
-    isModalOpen () {
-      return this.modalFlag
     }
   },
   watch: {
@@ -220,18 +122,11 @@ export default {
         this.haveBooks = false
       }
     }
-    window.addEventListener('scroll', this.getScrollY)
-  },
-  beforeDestroy () {
-    window.removeEventListener('scroll', this.getScrollY)
   },
   created () {
     this.debouncedGetAnswer = _.debounce(this.getAnswer, 1000)
   },
   methods: {
-    getScrollY () {
-      this.scrollY = window.scrollY
-    },
     getAnswer () {
       if (this.isbn) {
         axios.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + this.isbn).then((response) => {
@@ -256,7 +151,7 @@ export default {
         publisher: this.itemPublisher,
         comment: this.itemComment
       }
-      this.books.push(saveGroup)
+      this.books.unshift(saveGroup)
       saveGroup = ''
       this.isbn = ''
       this.items = ''
@@ -268,14 +163,10 @@ export default {
       const parsed = JSON.stringify(this.books)
       localStorage.setItem('books', parsed)
     },
-    openModal (book) {
-      this.modalFlag = true
-      this.modalItem = book
-      this.getScrollY()
-      this.saveScroll = this.scrollY
-    },
-    closeModal () {
-      this.modalFlag = false
+    deleteBtn (x) {
+      this.books.splice(x, 1)
+      this.saveBook()
+      console.log(x)
     }
   }
 }
