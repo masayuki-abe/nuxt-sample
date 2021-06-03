@@ -22,7 +22,8 @@
         />
         <dl class="p-api_box02--search">
           <dt>ISBN検索</dt>
-          <dd><input v-model="isbn" type="text" placeholder="ISBN10 or ISBN13"></dd>
+          <dd><MoleculesEtcSearchIsbn v-model="isbn" /></dd>
+          <!-- <dd><input v-model="isbn" type="text" placeholder="ISBN10 or ISBN13"></dd> -->
         </dl>
         <template v-if="message">
           <p class="p-api_box02--message">
