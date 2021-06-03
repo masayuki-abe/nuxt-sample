@@ -54,7 +54,7 @@
           tit-txt="Your Favorite Books"
         />
         <ul class="c-booklist">
-          <li v-for="(book, index) in reverseBooks" :key="book.id">
+          <li v-for="(book, index) in books" :key="book.id">
             <MoleculesEtcModalBook
               :book-img="book.img"
               :book-link="book.link"
@@ -63,7 +63,6 @@
               :book-publisher="book.publisher"
               :book-comment="book.comment"
               @delete-btn="deleteBtn(index)"
-              @click.native="countIndex(index)"
             />
           </li>
         </ul>
@@ -105,9 +104,6 @@ export default {
   computed: {
     faStickyNote () {
       return faStickyNote
-    },
-    reverseBooks () {
-      return this.books.slice().reverse()
     }
   },
   watch: {
@@ -155,7 +151,7 @@ export default {
         publisher: this.itemPublisher,
         comment: this.itemComment
       }
-      this.books.push(saveGroup)
+      this.books.unshift(saveGroup)
       saveGroup = ''
       this.isbn = ''
       this.items = ''
@@ -171,9 +167,6 @@ export default {
       this.books.splice(x, 1)
       this.saveBook()
       console.log(x)
-    },
-    countIndex (hoge) {
-      console.log(hoge)
     }
   }
 }
