@@ -42,59 +42,6 @@
             :item-comment="itemComment"
             @saveBtn="saveBtn"
           />
-          <!-- <div class="c-bookinfo">
-            <figure class="c-bookinfo_thumb">
-              <a :href="itemLink" target="_blank">
-                <img :src="itemImg">
-              </a>
-            </figure>
-            <dl class="c-bookinfo_data">
-              <dt class="c-bookinfo_data--title">
-                {{ itemTitle }}
-              </dt>
-              <dd class="c-bookinfo_data--detail">
-                <ul>
-                  <li>
-                    <dl>
-                      <dt>作者</dt>
-                      <dd>
-                        <p v-for="(author, index) in itemAuthors" :key="index">
-                          {{ author }}
-                        </p>
-                      </dd>
-                    </dl>
-                  </li>
-                  <li>
-                    <dl>
-                      <dt>出版社</dt>
-                      <dd>{{ itemPublisher }}</dd>
-                    </dl>
-                  </li>
-                </ul>
-              </dd>
-            </dl>
-            <p class="c-bookinfo_data--intro">
-              {{ item.volumeInfo.description }}
-            </p>
-            <AtomsButtonsTextBtn
-              btn-style="outside"
-              color="dark"
-              :link-path="item.volumeInfo.previewLink"
-              link-text="詳細を見る"
-              class="c-bookinfo_data--btn"
-            />
-            <dl class="c-bookinfo_comment">
-              <dt>■コメント</dt>
-              <dd>
-                <textarea
-                  v-model="itemComment"
-                />
-              </dd>
-            </dl>
-            <p class="c-bookinfo_save" @click="saveBtn">
-              <span>保存する<fa :icon="faStickyNote" /></span>
-            </p>
-          </div> -->
         </div>
       </div>
     </section><!-- /box02 -->
@@ -108,56 +55,14 @@
         />
         <ul class="c-booklist">
           <li v-for="book in reverseBooks" :key="book.id">
-            <figure class="c-booklist_thumb" @click="openModal(book)">
-              <img :src="book.img">
-            </figure>
-            <MoleculesEtcModal
-              v-if="modalFlag"
-              :top-position="saveScroll"
-              @close-modal="closeModal"
-            >
-              <figure class="c-booklist_thumb--modal">
-                <a :href="modalItem.link" target="_blank">
-                  <img :src="modalItem.img">
-                </a>
-              </figure>
-              <dl class="c-booklist_data">
-                <dt class="c-booklist_data--title">
-                  {{ modalItem.title }}
-                </dt>
-                <dd>
-                  <ul>
-                    <li>
-                      <dl>
-                        <dt>作者</dt>
-                        <dd>
-                          <p v-for="(bookAuthor, index) in modalItem.authors" :key="index">
-                            {{ bookAuthor }}
-                          </p>
-                        </dd>
-                      </dl>
-                    </li>
-                    <li>
-                      <dl>
-                        <dt>出版社</dt>
-                        <dd>{{ modalItem.publisher }}</dd>
-                      </dl>
-                    </li>
-                  </ul>
-                </dd>
-              </dl>
-              <dl v-if="modalItem.comment !== ''" class="c-booklist_comment">
-                <dt>■コメント</dt>
-                <dd>{{ modalItem.comment }}</dd>
-              </dl>
-              <AtomsButtonsTextBtn
-                btn-style="outside"
-                color="dark"
-                :link-path="modalItem.link"
-                link-text="詳細を見る"
-                class="c-booklist_btn"
-              />
-            </MoleculesEtcModal>
+            <MoleculesEtcModalBook
+              :book-img="book.img"
+              :book-link="book.link"
+              :book-title="book.title"
+              :book-authors="book.authors"
+              :book-publisher="book.publisher"
+              :book-comment="book.comment"
+            />
           </li>
         </ul>
       </div>
@@ -192,17 +97,7 @@ export default {
       itemAuthors: [],
       itemPublisher: '',
       haveBooks: false,
-      modalFlag: false,
-      modalItem: '',
-      scrollY: 0,
-      saveScroll: ''
-    }
-  },
-  head () {
-    return {
-      bodyAttrs: {
-        class: this.isModalOpen ? 'modal-on' : ''
-      }
+      modalItem: ''
     }
   },
   computed: {
@@ -211,9 +106,6 @@ export default {
     },
     reverseBooks () {
       return this.books.slice().reverse()
-    },
-    isModalOpen () {
-      return this.modalFlag
     }
   },
   watch: {
@@ -232,18 +124,11 @@ export default {
         this.haveBooks = false
       }
     }
-    window.addEventListener('scroll', this.getScrollY)
-  },
-  beforeDestroy () {
-    window.removeEventListener('scroll', this.getScrollY)
   },
   created () {
     this.debouncedGetAnswer = _.debounce(this.getAnswer, 1000)
   },
   methods: {
-    getScrollY () {
-      this.scrollY = window.scrollY
-    },
     getAnswer () {
       if (this.isbn) {
         axios.get('https://www.googleapis.com/books/v1/volumes?q=isbn:' + this.isbn).then((response) => {
@@ -279,15 +164,6 @@ export default {
     saveBook () {
       const parsed = JSON.stringify(this.books)
       localStorage.setItem('books', parsed)
-    },
-    openModal (book) {
-      this.modalFlag = true
-      this.modalItem = book
-      this.getScrollY()
-      this.saveScroll = this.scrollY
-    },
-    closeModal () {
-      this.modalFlag = false
     }
   }
 }
