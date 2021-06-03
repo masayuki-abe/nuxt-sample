@@ -21,6 +21,13 @@
     </a>
   </p>
   <p
+    v-else-if="btnStyle === 'trash'"
+    class="c-btn_text"
+    :class="['c-btn_text--' + btnStyle, color]"
+  >
+    <span>{{ linkText }}<AtomsIconsTrashIcn /></span>
+  </p>
+  <p
     v-else
     class="c-btn_text"
     :class="['c-btn_text--' + btnStyle, color]"
