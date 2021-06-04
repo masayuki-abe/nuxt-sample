@@ -4,7 +4,7 @@
       <img :src="bookImg">
     </figure>
     <MoleculesEtcModal
-      v-if="modalFlag"
+      v-if="isModalState"
       :top-position="saveScroll"
       @close-modal="closeModal"
     >
@@ -90,7 +90,7 @@ export default {
   },
   data () {
     return {
-      modalFlag: false,
+      modalFlag: '',
       modalItem: '',
       scrollY: 0,
       saveScroll: ''
@@ -99,13 +99,13 @@ export default {
   head () {
     return {
       bodyAttrs: {
-        class: this.isModalOpen ? 'modal-on' : ''
+        class: this.isModalState ? 'modal-on' : ''
       }
     }
   },
   computed: {
-    isModalOpen () {
-      return this.modalFlag
+    isModalState () {
+      return this.$store.state.Modal.modalFlag
     }
   },
   mounted () {
@@ -119,13 +119,12 @@ export default {
       this.scrollY = window.scrollY
     },
     openModal () {
-      this.modalFlag = true
-      // this.modalItem = book
+      this.$store.commit('Modal/openModal')
       this.getScrollY()
       this.saveScroll = this.scrollY
     },
     closeModal () {
-      this.modalFlag = false
+      this.$store.commit('Modal/closeModal')
     },
     deleteBook () {
       this.$emit('delete-btn')
