@@ -22,7 +22,24 @@
         />
         <dl class="p-api_box02--search">
           <dt>ISBN検索</dt>
-          <dd><MoleculesEtcSearchIsbn v-model="isbn" /></dd>
+          <dd>
+            <MoleculesEtcSearchIsbn v-model="isbn" />
+            <p class="resultCode">
+              {{ code }}
+            </p>
+            <button @click="startScan">
+              Scan
+            </button>
+            <div id="cameraArea">
+              <img v-if="code.length" src="" alt="result" class="resultImg">
+            </div>
+            <p v-if="code.length" class="getMessage">
+              取得できました
+            </p>
+            <button aria-label="close" @click.prevent.stop="stopScan">
+              Stop
+            </button>
+          </dd>
           <!-- <dd><input v-model="isbn" type="text" placeholder="ISBN10 or ISBN13"></dd> -->
         </dl>
         <template v-if="message">
@@ -98,7 +115,9 @@ export default {
       itemAuthors: [],
       itemPublisher: '',
       haveBooks: false,
-      modalItem: ''
+      modalItem: '',
+      Quagga: null,
+      code: ''
     }
   },
   computed: {
@@ -166,7 +185,92 @@ export default {
     deleteBtn (x) {
       this.books.splice(x, 1)
       this.saveBook()
-      console.log(x)
+    },
+    startScan () {
+      this.code = ''
+      this.initQuagga()
+    },
+    stopScan () {
+      this.Quagga.offProcessed(this.onProcessed)
+      this.Quagga.offDetected(this.onDetected)
+      this.Quagga.stop()
+    },
+    initQuagga () {
+      this.Quagga = require('quagga')
+      this.Quagga.onProcessed(this.onProcessed)
+      this.Quagga.onDetected(this.onDetected)
+
+      // 設定
+      const config = {
+        inputStream: {
+          name: 'Live',
+          type: 'LiveStream',
+          target: document.querySelector('#cameraArea'),
+          constraints: { facingMode: 'environment' }
+        },
+        numOfWorkers: navigator.hardwareConcurrency || 4,
+        decoder: { readers: ['ean_reader', 'ean_8_reader'] }
+      }
+      this.Quagga.init(config, this.onInit)
+    },
+    onInit (err) {
+      if (err) {
+        console.log(err)
+        return
+      }
+      console.info('Initialization finished. Ready to start')
+      this.Quagga.start()
+    },
+    onDetected (success) {
+      this.code = success.codeResult.code
+      // 取得時の画像を表示
+      const $resultImg = document.querySelector('.resultImg')
+      $resultImg.setAttribute('src', this.Quagga.canvas.dom.image.toDataURL())
+      this.Quagga.stop()
+    },
+    onProcessed (result) {
+      const drawingCtx = this.Quagga.canvas.ctx.overlay
+      const drawingCanvas = this.Quagga.canvas.dom.overlay
+
+      if (result) {
+        // 検出中の緑の線の枠
+        if (result.boxes) {
+          drawingCtx.clearRect(0, 0, drawingCanvas.width, drawingCanvas.height)
+          const hasNotRead = box => box !== result.box
+          result.boxes.filter(hasNotRead).forEach((box) => {
+            this.Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, {
+              color: 'green',
+              lineWidth: 2
+            })
+          })
+        }
+
+        // 検出に成功した瞬間の青い線の枠
+        if (result.box) {
+          this.Quagga.ImageDebug.drawPath(
+            result.box,
+            { x: 0, y: 1 },
+            drawingCtx,
+            {
+              color: 'blue',
+              lineWidth: 2
+            }
+          )
+        }
+
+        // 検出に成功した瞬間の水平の赤い線
+        if (result.codeResult && result.codeResult.code) {
+          this.Quagga.ImageDebug.drawPath(
+            result.line,
+            { x: 'x', y: 'y' },
+            drawingCtx,
+            {
+              color: 'red',
+              lineWidth: 3
+            }
+          )
+        }
+      }
     }
   }
 }
