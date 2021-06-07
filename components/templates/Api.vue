@@ -97,8 +97,7 @@ export default {
       itemImg: '',
       itemAuthors: [],
       itemPublisher: '',
-      haveBooks: false,
-      modalItem: ''
+      haveBooks: false
     }
   },
   computed: {

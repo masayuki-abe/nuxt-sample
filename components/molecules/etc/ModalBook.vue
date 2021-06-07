@@ -92,14 +92,6 @@ export default {
       default: ''
     }
   },
-  data () {
-    return {
-      modalFlag: '',
-      modalItem: '',
-      scrollY: 0,
-      saveScroll: ''
-    }
-  },
   head () {
     return {
       bodyAttrs: {
