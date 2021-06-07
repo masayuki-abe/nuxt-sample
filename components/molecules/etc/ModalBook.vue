@@ -63,9 +63,17 @@
 <script>
 export default {
   props: {
-    bookArray: {
-      type: Array,
-      default: () => []
+    bookIndex: {
+      type: Number,
+      default: 0
+    },
+    bookId: {
+      type: String,
+      default: ''
+    },
+    bookFlag: {
+      type: Boolean,
+      default: false
     },
     bookImg: {
       type: String,
