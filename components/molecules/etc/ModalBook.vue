@@ -1,12 +1,12 @@
 <template>
   <div class="c-booklist_wrap">
-    <figure class="c-booklist_thumb" @click="openModal">
+    <figure class="c-booklist_thumb" @click="$store.commit('Modal/openModal')">
       <img :src="bookImg">
     </figure>
     <MoleculesEtcModal
       v-if="isModalState"
-      :top-position="saveScroll"
-      @close-modal="closeModal"
+      :top-position="$window.pageYOffset"
+      @close-modal="$store.commit('Modal/closeModal')"
     >
       <figure class="c-booklist_thumb--modal">
         <a :href="bookLink" target="_blank">
@@ -63,6 +63,10 @@
 <script>
 export default {
   props: {
+    bookArray: {
+      type: Array,
+      default: () => []
+    },
     bookImg: {
       type: String,
       default: ''
@@ -108,24 +112,7 @@ export default {
       return this.$store.state.Modal.modalFlag
     }
   },
-  mounted () {
-    window.addEventListener('scroll', this.getScrollY)
-  },
-  beforeDestroy () {
-    window.removeEventListener('scroll', this.getScrollY)
-  },
   methods: {
-    getScrollY () {
-      this.scrollY = window.scrollY
-    },
-    openModal () {
-      this.$store.commit('Modal/openModal')
-      this.getScrollY()
-      this.saveScroll = this.scrollY
-    },
-    closeModal () {
-      this.$store.commit('Modal/closeModal')
-    },
     deleteBook () {
       this.$emit('delete-btn')
     }

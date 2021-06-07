@@ -166,7 +166,6 @@ export default {
     deleteBtn (x) {
       this.books.splice(x, 1)
       this.saveBook()
-      console.log(x)
     }
   }
 }
