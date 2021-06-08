@@ -347,7 +347,6 @@ export default {
           }
           dd{
             @include fontSet(16, 16, 100, $lap);
-            width: 50%;
             margin: 0 auto;
             padding: 0 1em;
             input{
@@ -379,18 +378,18 @@ export default {
 }
 
 #cameraArea {
-  overflow: hidden;
-  width: 320px;
-  height: 240px;
-  margin: auto;
-  position: relative;
-  display: flex;
-  align-items: center;
+    width: 300px;
+    height: 300px;
+    overflow: hidden;
 }
 #cameraArea video,
 #cameraArea canvas {
-  width: 320px;
-  height: 240px;
+    margin-top: -50px;
+    width: 300px;
+    height: 400px;
+}
+#cameraArea video.drawingBuffer, #cameraArea canvas{
+margin-left: -300px;
 }
 button {
   width: 100px;
