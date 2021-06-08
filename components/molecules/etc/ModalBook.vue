@@ -1,6 +1,6 @@
 <template>
   <div class="c-booklist_wrap">
-    <figure class="c-booklist_thumb" @click="$store.commit('Modal/openModal')">
+    <figure class="c-booklist_thumb" @click="openModal">
       <img :src="bookImg">
     </figure>
     <MoleculesEtcModal
@@ -10,7 +10,7 @@
     >
       <figure class="c-booklist_thumb--modal">
         <a :href="bookLink" target="_blank">
-          <img :src="bookImg">
+          <img :src="bookImgModal">
         </a>
       </figure>
       <dl class="c-booklist_data">
@@ -63,24 +63,16 @@
 <script>
 export default {
   props: {
-    bookIndex: {
-      type: Number,
-      default: 0
-    },
-    bookId: {
-      type: String,
-      default: ''
-    },
-    bookFlag: {
-      type: Boolean,
-      default: false
-    },
     bookImg: {
       type: String,
       default: ''
     },
-    bookLink: {
+    bookImgModal: {
       type: String,
+      default: ''
+    },
+    bookLink: {
+      type: null,
       default: ''
     },
     bookTitle: {
@@ -113,6 +105,9 @@ export default {
     }
   },
   methods: {
+    openModal () {
+      this.$emit('open-modal')
+    },
     deleteBook () {
       this.$emit('delete-btn')
     }
