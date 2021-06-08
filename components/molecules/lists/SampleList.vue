@@ -1,15 +1,16 @@
 <template>
   <ul class="c-list_sample">
-    <li v-for="(sample, index) in limitCount" :key="sample.id" class="c-modal" :class="modalItem.path">
+    <li v-for="sample in limitCount" :key="sample.id" class="c-modal" :class="modalItem.path">
       <template v-if="$window.width < 1024">
         <AtomsButtonsTextBtn
           btn-style="modal"
           :link-text="sample.name"
           color="white"
-          @open-modal="openModal(sample, index)"
+          @open-modal="openModal(sample)"
         />
         <MoleculesEtcModal
           v-if="isModalState"
+          :top-position="$window.pageYOffset"
           @close-modal="$store.commit('Modal/closeModal')"
         >
           <dl>
@@ -64,6 +65,13 @@ export default {
       modalItem: ''
     }
   },
+  head () {
+    return {
+      bodyAttrs: {
+        class: this.isModalState ? 'modal-on' : ''
+      }
+    }
+  },
   computed: {
     limitCount () {
       if (this.$route.name === 'index') {
@@ -77,10 +85,9 @@ export default {
     }
   },
   methods: {
-    openModal (sample, index) {
+    openModal (sample) {
       this.$store.commit('Modal/openModal')
       this.modalItem = sample
-      this.countArray = index
     }
   }
 }
