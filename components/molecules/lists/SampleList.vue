@@ -1,31 +1,31 @@
 <template>
   <ul class="c-list_sample">
-    <li v-for="sample in limitCount" :key="sample.id" class="c-modal" :class="postItem.path">
+    <li v-for="(sample, index) in limitCount" :key="sample.id" class="c-modal" :class="modalItem.path">
       <template v-if="$window.width < 1024">
         <AtomsButtonsTextBtn
           btn-style="modal"
           :link-text="sample.name"
           color="white"
-          @open-modal="openModal(sample)"
+          @open-modal="openModal(sample, index)"
         />
         <MoleculesEtcModal
-          v-if="modalFlag"
-          @close-modal="closeModal"
+          v-if="isModalState"
+          @close-modal="$store.commit('Modal/closeModal')"
         >
           <dl>
             <dt>
-              <span>{{ postItem.name }}</span><br>
-              {{ postItem.nameJa }}
+              <span>{{ modalItem.name }}</span><br>
+              {{ modalItem.nameJa }}
             </dt>
             <dd>
               <p class="comment f-txt">
-                {{ postItem.comment }}
+                {{ modalItem.comment }}
               </p>
               <AtomsButtonsTextBtn
                 btn-style="ghost"
                 color="white"
-                :link-path="postItem.path"
-                :link-text="postItem.name"
+                :link-path="modalItem.path"
+                :link-text="modalItem.name"
               />
             </dd>
           </dl>
@@ -61,8 +61,7 @@ import sampleList from 'assets/js/SampleList'
 export default {
   data () {
     return {
-      modalFlag: false,
-      postItem: ''
+      modalItem: ''
     }
   },
   computed: {
@@ -72,15 +71,16 @@ export default {
       } else {
         return sampleList
       }
+    },
+    isModalState () {
+      return this.$store.state.Modal.modalFlag
     }
   },
   methods: {
-    openModal (sample) {
-      this.modalFlag = true
-      this.postItem = sample
-    },
-    closeModal () {
-      this.modalFlag = false
+    openModal (sample, index) {
+      this.$store.commit('Modal/openModal')
+      this.modalItem = sample
+      this.countArray = index
     }
   }
 }
