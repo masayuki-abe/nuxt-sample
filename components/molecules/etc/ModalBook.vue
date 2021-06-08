@@ -4,13 +4,13 @@
       <img :src="bookImg">
     </figure>
     <MoleculesEtcModal
-      v-if="modalFlag"
-      :top-position="saveScroll"
-      @close-modal="closeModal"
+      v-if="isModalState"
+      :top-position="$window.pageYOffset"
+      @close-modal="$store.commit('Modal/closeModal')"
     >
       <figure class="c-booklist_thumb--modal">
         <a :href="bookLink" target="_blank">
-          <img :src="bookImg">
+          <img :src="bookImgModal">
         </a>
       </figure>
       <dl class="c-booklist_data">
@@ -67,8 +67,12 @@ export default {
       type: String,
       default: ''
     },
-    bookLink: {
+    bookImgModal: {
       type: String,
+      default: ''
+    },
+    bookLink: {
+      type: null,
       default: ''
     },
     bookTitle: {
@@ -88,44 +92,21 @@ export default {
       default: ''
     }
   },
-  data () {
-    return {
-      modalFlag: false,
-      modalItem: '',
-      scrollY: 0,
-      saveScroll: ''
-    }
-  },
   head () {
     return {
       bodyAttrs: {
-        class: this.isModalOpen ? 'modal-on' : ''
+        class: this.isModalState ? 'modal-on' : ''
       }
     }
   },
   computed: {
-    isModalOpen () {
-      return this.modalFlag
+    isModalState () {
+      return this.$store.state.Modal.modalFlag
     }
   },
-  mounted () {
-    window.addEventListener('scroll', this.getScrollY)
-  },
-  beforeDestroy () {
-    window.removeEventListener('scroll', this.getScrollY)
-  },
   methods: {
-    getScrollY () {
-      this.scrollY = window.scrollY
-    },
     openModal () {
-      this.modalFlag = true
-      // this.modalItem = book
-      this.getScrollY()
-      this.saveScroll = this.scrollY
-    },
-    closeModal () {
-      this.modalFlag = false
+      this.$emit('open-modal')
     },
     deleteBook () {
       this.$emit('delete-btn')
