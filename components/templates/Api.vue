@@ -74,12 +74,14 @@
           <li v-for="(book, index) in books" :key="book.id">
             <MoleculesEtcModalBook
               :book-img="book.img"
-              :book-link="book.link"
-              :book-title="book.title"
-              :book-authors="book.authors"
-              :book-publisher="book.publisher"
-              :book-comment="book.comment"
-              @delete-btn="deleteBtn(index)"
+              :book-img-modal="modalItem.img"
+              :book-link="modalItem.link"
+              :book-title="modalItem.title"
+              :book-authors="modalItem.authors"
+              :book-publisher="modalItem.publisher"
+              :book-comment="modalItem.comment"
+              @open-modal="openModal(book, index)"
+              @delete-btn="deleteBtn()"
             />
           </li>
         </ul>
@@ -110,14 +112,15 @@ export default {
       itemComment: '',
       itemId: '',
       itemTitle: '',
-      itemLink: '',
+      itemLink: [],
       itemImg: '',
       itemAuthors: [],
       itemPublisher: '',
       haveBooks: false,
       modalItem: '',
       Quagga: null,
-      code: ''
+      code: '',
+      countArray: ''
     }
   },
   computed: {
@@ -168,7 +171,8 @@ export default {
         img: this.itemImg,
         authors: this.itemAuthors,
         publisher: this.itemPublisher,
-        comment: this.itemComment
+        comment: this.itemComment,
+        flag: false
       }
       this.books.unshift(saveGroup)
       saveGroup = ''
@@ -182,8 +186,13 @@ export default {
       const parsed = JSON.stringify(this.books)
       localStorage.setItem('books', parsed)
     },
-    deleteBtn (x) {
-      this.books.splice(x, 1)
+    openModal (book, index) {
+      this.$store.commit('Modal/openModal')
+      this.modalItem = book
+      this.countArray = index
+    },
+    deleteBtn () {
+      this.books.splice(this.countArray, 1)
       this.saveBook()
     },
     startScan () {
@@ -271,6 +280,7 @@ export default {
           )
         }
       }
+      this.$store.commit('Modal/closeModal')
     }
   }
 }
