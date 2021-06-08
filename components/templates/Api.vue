@@ -367,4 +367,37 @@ export default {
     }
   }
 }
+
+#cameraArea {
+  overflow: hidden;
+  width: 320px;
+  height: 240px;
+  margin: auto;
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+#cameraArea video,
+#cameraArea canvas {
+  width: 320px;
+  height: 240px;
+}
+button {
+  width: 100px;
+  height: 40px;
+  background-color: #fff;
+  border: 1px solid #333;
+  margin-top: 30px;
+}
+.resultImg {
+  width: 100%;
+}
+.resultCode {
+  font-size: 24px;
+  font-weight: bold;
+  text-align: center;
+}
+.getMessage {
+  color: red;
+}
 </style>
