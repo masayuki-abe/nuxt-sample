@@ -209,6 +209,7 @@ export default {
     deleteBtn () {
       this.books.splice(this.countArray, 1)
       this.saveBook()
+      this.$store.commit('Modal/closeModal')
     },
     startScan () {
       this.code = ''
@@ -324,7 +325,6 @@ export default {
           )
         }
       }
-      this.$store.commit('Modal/closeModal')
     }
   }
 }
@@ -451,6 +451,9 @@ export default {
               width: 100%;
               padding: 0.5em;
               border-radius: 0.5em;
+            }
+            .p-api_box02--search-btn-scan{
+              @include dis(none);
             }
           }
         }
