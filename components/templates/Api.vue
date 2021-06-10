@@ -24,21 +24,26 @@
           <dt>ISBN検索</dt>
           <dd>
             <MoleculesEtcSearchIsbn v-model="isbn" />
-            <p class="resultCode">
+            <!-- <p class="resultCode">
               {{ code }}
-            </p>
-            <button @click="startScan">
-              Scan
+            </p> -->
+            <button class="p-api_box02--search-btn-scan" @click="startScan">
+              バーコードから探す<fa :icon="faCamera" />
             </button>
-            <div id="cameraArea">
-              <img v-if="code.length" src="" alt="result" class="resultImg">
+            <div v-show="camera" class="p-api_box02--search-scan" :style="scrollTopPosition">
+              <p class="p-api_box02--search-scan-txt">
+                「978」から始まるバーコードを映してください。
+              </p>
+              <div id="cameraArea">
+                <!-- <img v-if="code.length" src="" alt="result" class="resultImg"> -->
+              </div>
+              <p v-if="code.length" class="getMessage">
+                「{{ code }}」を読み取りました。下の「閉じる」ボタンをタップしてください。
+              </p>
+              <button class="p-api_box02--search-btn-stop" aria-label="close" @click.prevent.stop="stopScan">
+                閉じる
+              </button>
             </div>
-            <p v-if="code.length" class="getMessage">
-              取得できました
-            </p>
-            <button aria-label="close" @click.prevent.stop="stopScan">
-              Stop
-            </button>
           </dd>
           <!-- <dd><input v-model="isbn" type="text" placeholder="ISBN10 or ISBN13"></dd> -->
         </dl>
@@ -100,7 +105,7 @@
 <script>
 import axios from 'axios'
 import _ from 'lodash'
-import { faStickyNote } from '@fortawesome/free-solid-svg-icons'
+import { faStickyNote, faCamera } from '@fortawesome/free-solid-svg-icons'
 
 export default {
   data () {
@@ -120,12 +125,22 @@ export default {
       modalItem: '',
       Quagga: null,
       code: '',
-      countArray: ''
+      countArray: '',
+      camera: false,
+      scrollPos: 0
     }
   },
   computed: {
     faStickyNote () {
       return faStickyNote
+    },
+    faCamera () {
+      return faCamera
+    },
+    scrollTopPosition () {
+      return {
+        '--top': this.$window.pageYOffset + 'px'
+      }
     }
   },
   watch: {
@@ -198,11 +213,14 @@ export default {
     startScan () {
       this.code = ''
       this.initQuagga()
+      this.camera = true
+      console.log(this.camera)
     },
     stopScan () {
       this.Quagga.offProcessed(this.onProcessed)
       this.Quagga.offDetected(this.onDetected)
       this.Quagga.stop()
+      this.camera = false
     },
     initQuagga () {
       this.Quagga = require('quagga')
@@ -221,7 +239,7 @@ export default {
           patchSize: 'medium',
           halfSample: true
         },
-        numOfWorkers: navigator.hardwareConcurrency || 4,
+        numOfWorkers: navigator.hardwareConcurrency || 8,
         decoder: {
           readers: ['ean_reader'],
           multiple: false
@@ -240,7 +258,8 @@ export default {
     },
     onDetected (success) {
       this.code = success.codeResult.code
-      if (this.calc(this.code)) { alert(this.code) }
+      this.isbn = this.code
+      // if (this.calc(this.code)) { alert(this.code) }
       // 取得時の画像を表示
       const $resultImg = document.querySelector('.resultImg')
       $resultImg.setAttribute('src', this.Quagga.canvas.dom.image.toDataURL())
@@ -338,8 +357,59 @@ export default {
             @include dis(inline-block);
             @include ta(center);
             width: 100%;
+            margin-bottom: 1em;
             padding: 0.5em;
             border-radius: 0.5em;
+          }
+          .p-api_box02--search-btn-scan{
+            @include fontSet(32, 32, 100, $tab);
+            @include dis(block);
+            @include ta(center);
+            width: 70%;
+            margin: 0 auto;
+            padding: 0.5em;
+          }
+          .p-api_box02--search-scan{
+            @include dflex(c,c);
+            flex-direction: column;
+            position: absolute;
+            left: 0;
+            top: var(--top);
+            width: 100%;
+            height: 100%;
+            background-color: rgba($dark, 0.7);
+            .p-api_box02--search-scan-txt{
+              @include fontSet(32,46,100,$tab);
+              padding: 0 1em;
+              color: $white;
+              font-weight: 700;
+            }
+            #cameraArea{
+              position: relative;
+              width: 90%;
+              height: 300px;
+              margin: 0 auto;
+              video{
+                width: 100%;
+                height: 100%;
+                margin: 0;
+              }
+              canvas{
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+
+              }
+            }
+            .getMessage{
+              @include fontSet(32,46,100,$tab);
+              padding: 1em;
+              color: $white;
+              font-weight: 700;
+            }
           }
         }
       }
