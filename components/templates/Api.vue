@@ -37,8 +37,8 @@
               <div id="cameraArea">
                 <!-- <img v-if="code.length" src="" alt="result" class="resultImg"> -->
               </div>
-              <p v-if="code.length" class="getMessage">
-                「{{ code }}」を読み取りました。下の「閉じる」ボタンをタップしてください。
+              <p v-if="isbn.length" class="getMessage">
+                「{{ isbn }}」を読み取りました。
               </p>
               <button class="p-api_box02--search-btn-stop" aria-label="close" @click.prevent.stop="stopScan">
                 閉じる
@@ -234,13 +234,28 @@ export default {
           name: 'Live',
           type: 'LiveStream',
           target: document.querySelector('#cameraArea'),
-          constraints: { facingMode: 'environment' }
+          constraints: {
+            decodeBarCodeRate: 3,
+            successTimeout: 500,
+            codeRepetition: true,
+            tryVertical: true,
+            frameRate: 15,
+            width: 640,
+            height: 480,
+            facingMode: 'environment'
+          },
+          area: {
+            top: '30%',
+            right: '0%',
+            bottom: '30%',
+            left: '0%'
+          }
         },
         locator: {
           patchSize: 'medium',
           halfSample: true
         },
-        numOfWorkers: navigator.hardwareConcurrency || 8,
+        numOfWorkers: navigator.hardwareConcurrency || 4,
         decoder: {
           readers: ['ean_reader'],
           multiple: false
@@ -259,12 +274,16 @@ export default {
     },
     onDetected (success) {
       this.code = success.codeResult.code
-      this.isbn = this.code
+      if (this.code.slice(0, 3) === '978') {
+        this.isbn = this.code
+        this.Quagga.stop()
+        this.camera = false
+      }
       // if (this.calc(this.code)) { alert(this.code) }
       // 取得時の画像を表示
-      const $resultImg = document.querySelector('.resultImg')
-      $resultImg.setAttribute('src', this.Quagga.canvas.dom.image.toDataURL())
-      this.Quagga.stop()
+      // const $resultImg = document.querySelector('.resultImg')
+      // $resultImg.setAttribute('src', this.Quagga.canvas.dom.image.toDataURL())
+      // this.Quagga.stop()
     },
     calc (isbn) {
       const arrIsbn = isbn
@@ -386,10 +405,14 @@ export default {
             }
             #cameraArea{
               position: relative;
-              width: 90%;
-              height: 300px;
+              width: 100%;
+              height: 0;
+              padding-top: (480/640)*100%;
               margin: 0 auto;
               video{
+                position: absolute;
+                left: 0;
+                top: 0;
                 width: 100%;
                 height: 100%;
                 margin: 0;
@@ -401,7 +424,9 @@ export default {
                 width: 100%;
                 height: 100%;
                 margin: 0;
-
+              }
+              .drawingBuffer{
+                margin-left: -480px;
               }
             }
             .getMessage{
