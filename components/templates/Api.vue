@@ -279,27 +279,6 @@ export default {
         this.Quagga.stop()
         this.camera = false
       }
-      // if (this.calc(this.code)) { alert(this.code) }
-      // 取得時の画像を表示
-      // const $resultImg = document.querySelector('.resultImg')
-      // $resultImg.setAttribute('src', this.Quagga.canvas.dom.image.toDataURL())
-      // this.Quagga.stop()
-    },
-    calc (isbn) {
-      const arrIsbn = isbn
-        .toString()
-        .split('')
-        .map(num => parseInt(num))
-      let remainder = 0
-      const checkDigit = arrIsbn.pop()
-
-      arrIsbn.forEach((num, index) => {
-        remainder += num * (index % 2 === 0 ? 1 : 3)
-      })
-      remainder %= 10
-      remainder = remainder === 0 ? 0 : 10 - remainder
-
-      return checkDigit === remainder
     },
     onProcessed (result) {
       const drawingCtx = this.Quagga.canvas.ctx.overlay
@@ -394,17 +373,19 @@ export default {
             position: absolute;
             left: 0;
             top: var(--top);
+            z-index: 9999;
             width: 100%;
             height: 100%;
             background-color: rgba($dark, 0.7);
             .p-api_box02--search-scan-txt{
               @include fontSet(32,46,100,$tab);
-              padding: 0 1em;
+              padding: 0 1em 1em;
               color: $white;
               font-weight: 700;
             }
             #cameraArea{
               position: relative;
+              overflow: hidden;
               width: 100%;
               height: 0;
               padding-top: (480/640)*100%;
@@ -434,6 +415,16 @@ export default {
               padding: 1em;
               color: $white;
               font-weight: 700;
+            }
+            .p-api_box02--search-btn-stop{
+              @include fontSet(32,32,100,$tab);
+              @include dis(inline-block);
+              margin-top: 1em;
+              padding: .5em 1em;
+              background-color: transparent;
+              border: 1px $white solid;
+              color: $white;
+
             }
           }
         }
@@ -498,38 +489,5 @@ export default {
       }
     }
   }
-}
-
-#cameraArea {
-    width: 300px;
-    height: 300px;
-    overflow: hidden;
-}
-#cameraArea video,
-#cameraArea canvas {
-    margin-top: -50px;
-    width: 300px;
-    height: 400px;
-}
-#cameraArea video.drawingBuffer, #cameraArea canvas{
-margin-left: -300px;
-}
-button {
-  width: 100px;
-  height: 40px;
-  background-color: #fff;
-  border: 1px solid #333;
-  margin-top: 30px;
-}
-.resultImg {
-  width: 100%;
-}
-.resultCode {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-}
-.getMessage {
-  color: red;
 }
 </style>
