@@ -75,12 +75,14 @@
           tit-class="middle"
           tit-txt="Your Favorite Books"
         />
+        <p v-if="booksLength > 0" class="p-api_box03--readedcount">あなたは{{ booksLength }}冊の本を読みました。</p>
         <ul class="c-booklist">
           <li v-for="(book, index) in books" :key="book.id">
             <MoleculesEtcModalBook
               :book-img="book.img"
               :book-img-modal="modalItem.img"
               :book-link="modalItem.link"
+              :book-title-caption="book.title"
               :book-title="modalItem.title"
               :book-authors="modalItem.authors"
               :book-publisher="modalItem.publisher"
@@ -118,7 +120,7 @@ export default {
       itemId: '',
       itemTitle: '',
       itemLink: [],
-      itemImg: '',
+      itemImg: 'http://books.google.com/books/content?printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
       itemAuthors: [],
       itemPublisher: '',
       haveBooks: false,
@@ -127,7 +129,8 @@ export default {
       code: '',
       countArray: '',
       camera: false,
-      scrollPos: 0
+      scrollPos: 0,
+      readedLength: 0
     }
   },
   computed: {
@@ -141,6 +144,9 @@ export default {
       return {
         '--top': this.$window.pageYOffset + 'px'
       }
+    },
+    booksLength () {
+      return this.books.length
     }
   },
   watch: {
@@ -171,9 +177,12 @@ export default {
           this.itemId = response.data.items[0].id
           this.itemLink = response.data.items[0].volumeInfo.previewLink
           this.itemTitle = response.data.items[0].volumeInfo.title
-          this.itemImg = response.data.items[0].volumeInfo.imageLinks.thumbnail
+          if (response.data.items[0].volumeInfo.imageLinks.thumbnail) {
+            this.itemImg = response.data.items[0].volumeInfo.imageLinks.thumbnail
+          }
           this.itemAuthors = response.data.items[0].volumeInfo.authors
           this.itemPublisher = response.data.items[0].volumeInfo.publisher
+          this.itemCount = response.data.items[0].volumeInfo.pageCount
         })
       }
       this.message = ''
@@ -187,6 +196,7 @@ export default {
         authors: this.itemAuthors,
         publisher: this.itemPublisher,
         comment: this.itemComment,
+        count: this.itemCount,
         flag: false
       }
       this.books.unshift(saveGroup)
@@ -210,6 +220,9 @@ export default {
       this.books.splice(this.countArray, 1)
       this.saveBook()
       this.$store.commit('Modal/closeModal')
+    },
+    readedBooks () {
+      this.readedLength = this.booksLength
     },
     startScan () {
       this.code = ''
@@ -407,7 +420,7 @@ export default {
                 margin: 0;
               }
               .drawingBuffer{
-                margin-left: -480px;
+                // margin-left: -480px;
               }
             }
             .getMessage{

@@ -2,6 +2,7 @@
   <div class="c-booklist_wrap">
     <figure class="c-booklist_thumb" @click="openModal">
       <img :src="bookImg">
+      <figcaption>{{ bookTitleCaption }}</figcaption>
     </figure>
     <MoleculesEtcModal
       v-if="isModalState"
@@ -76,6 +77,10 @@ export default {
       default: ''
     },
     bookTitle: {
+      type: String,
+      default: ''
+    },
+    bookTitleCaption: {
       type: String,
       default: ''
     },
