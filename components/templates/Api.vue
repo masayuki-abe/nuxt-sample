@@ -407,7 +407,6 @@ export default {
             }
             #cameraArea{
               position: relative;
-              overflow: hidden;
               width: 100%;
               height: 0;
               padding-top: (480/640)*100%;
