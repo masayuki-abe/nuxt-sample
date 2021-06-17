@@ -24,9 +24,6 @@
           <dt>ISBN検索</dt>
           <dd>
             <MoleculesEtcSearchIsbn v-model="isbn" />
-            <!-- <p class="resultCode">
-              {{ code }}
-            </p> -->
             <button class="p-api_box02--search-btn-scan" @click="startScan">
               バーコードから探す<fa :icon="faCamera" />
             </button>
@@ -35,7 +32,6 @@
                 「978」から始まるバーコードを映してください。
               </p>
               <div id="cameraArea">
-                <!-- <img v-if="code.length" src="" alt="result" class="resultImg"> -->
               </div>
               <p v-if="isbn.length" class="getMessage">
                 「{{ isbn }}」を読み取りました。
@@ -45,7 +41,6 @@
               </button>
             </div>
           </dd>
-          <!-- <dd><input v-model="isbn" type="text" placeholder="ISBN10 or ISBN13"></dd> -->
         </dl>
         <template v-if="message">
           <p class="p-api_box02--message">
