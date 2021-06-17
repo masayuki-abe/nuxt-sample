@@ -75,7 +75,14 @@
           tit-class="middle"
           tit-txt="Your Favorite Books"
         />
-        <p v-if="booksLength > 0" class="p-api_box03--readedcount">あなたは{{ booksLength }}冊の本を読みました。</p>
+        <div v-if="booksLength > 0" class="p-api_box03--readedcount">
+          <p class="p-api_box03--readedcount-books">
+            あなたは<br>
+            <span>{{ booksLength }}</span>冊<br>
+            <span>{{ pagesCount }}</span>ページ<br>
+            読みました。
+          </p>
+        </div>
         <ul class="c-booklist">
           <li v-for="(book, index) in books" :key="book.id">
             <MoleculesEtcModalBook
@@ -130,7 +137,8 @@ export default {
       countArray: '',
       camera: false,
       scrollPos: 0,
-      readedLength: 0
+      readedLength: 0,
+      pageMath: []
     }
   },
   computed: {
@@ -146,7 +154,13 @@ export default {
       }
     },
     booksLength () {
-      return this.books.length
+      return this.books.length.toLocaleString()
+    },
+    pagesCount () {
+      const booksCount = this.books.reduce(function (sum, element) {
+        return sum + element.count
+      }, 0).toLocaleString()
+      return booksCount
     }
   },
   watch: {
@@ -224,11 +238,13 @@ export default {
     readedBooks () {
       this.readedLength = this.booksLength
     },
+    readedPages () {
+      this.pageMath = this.pagesCount
+    },
     startScan () {
       this.code = ''
       this.initQuagga()
       this.camera = true
-      console.log(this.camera)
     },
     stopScan () {
       this.Quagga.offProcessed(this.onProcessed)
@@ -279,10 +295,8 @@ export default {
     },
     onInit (err) {
       if (err) {
-        console.log(err)
         return
       }
-      console.info('Initialization finished. Ready to start')
       this.Quagga.start()
     },
     onDetected (success) {
@@ -419,9 +433,9 @@ export default {
                 height: 100%;
                 margin: 0;
               }
-              .drawingBuffer{
-                // margin-left: -480px;
-              }
+              // .drawingBuffer{
+              //   margin-left: -480px;
+              // }
             }
             .getMessage{
               @include fontSet(32,46,100,$tab);
@@ -452,6 +466,19 @@ export default {
   }
   &_box03{
     padding-bottom: per(100, $tab);
+    .p-api_box03{
+      &--readedcount{
+        @include fontSet(32,52,100, $tab);
+        padding-bottom: 1em;
+        &-books{
+          @include ta(center);
+          span{
+            @include fontSet(42, 42, 100, $tab);
+            font-weight: 700;
+          }
+        }
+      }
+    }
   }
 }
 @include lap() {
