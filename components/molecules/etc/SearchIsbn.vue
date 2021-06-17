@@ -1,5 +1,5 @@
 <template>
-  <input v-model="inputIsbn" type="text" placeholder="ISBN10 or ISBN13">
+  <input v-model="inputIsbn" type="text" placeholder="ISBN13">
 </template>
 
 <script>
