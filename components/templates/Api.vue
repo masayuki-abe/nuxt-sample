@@ -24,9 +24,6 @@
           <dt>ISBN検索</dt>
           <dd>
             <MoleculesEtcSearchIsbn v-model="isbn" />
-            <!-- <p class="resultCode">
-              {{ code }}
-            </p> -->
             <button class="p-api_box02--search-btn-scan" @click="startScan">
               バーコードから探す<fa :icon="faCamera" />
             </button>
@@ -35,7 +32,6 @@
                 「978」から始まるバーコードを映してください。
               </p>
               <div id="cameraArea">
-                <!-- <img v-if="code.length" src="" alt="result" class="resultImg"> -->
               </div>
               <p v-if="isbn.length" class="getMessage">
                 「{{ isbn }}」を読み取りました。
@@ -45,7 +41,6 @@
               </button>
             </div>
           </dd>
-          <!-- <dd><input v-model="isbn" type="text" placeholder="ISBN10 or ISBN13"></dd> -->
         </dl>
         <template v-if="message">
           <p class="p-api_box02--message">
@@ -75,12 +70,21 @@
           tit-class="middle"
           tit-txt="Your Favorite Books"
         />
+        <div v-if="booksLength > 0" class="p-api_box03--readedcount">
+          <p class="p-api_box03--readedcount-books">
+            あなたは<br>
+            <span>{{ booksLength }}</span>冊<br>
+            <span>{{ pagesCount }}</span>ページ<br>
+            読みました。
+          </p>
+        </div>
         <ul class="c-booklist">
           <li v-for="(book, index) in books" :key="book.id">
             <MoleculesEtcModalBook
               :book-img="book.img"
               :book-img-modal="modalItem.img"
               :book-link="modalItem.link"
+              :book-title-caption="book.title"
               :book-title="modalItem.title"
               :book-authors="modalItem.authors"
               :book-publisher="modalItem.publisher"
@@ -118,7 +122,7 @@ export default {
       itemId: '',
       itemTitle: '',
       itemLink: [],
-      itemImg: '',
+      itemImg: 'http://books.google.com/books/content?printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
       itemAuthors: [],
       itemPublisher: '',
       haveBooks: false,
@@ -127,7 +131,9 @@ export default {
       code: '',
       countArray: '',
       camera: false,
-      scrollPos: 0
+      scrollPos: 0,
+      readedLength: 0,
+      pageMath: []
     }
   },
   computed: {
@@ -141,6 +147,15 @@ export default {
       return {
         '--top': this.$window.pageYOffset + 'px'
       }
+    },
+    booksLength () {
+      return this.books.length.toLocaleString()
+    },
+    pagesCount () {
+      const booksCount = this.books.reduce(function (sum, element) {
+        return sum + element.count
+      }, 0).toLocaleString()
+      return booksCount
     }
   },
   watch: {
@@ -171,9 +186,12 @@ export default {
           this.itemId = response.data.items[0].id
           this.itemLink = response.data.items[0].volumeInfo.previewLink
           this.itemTitle = response.data.items[0].volumeInfo.title
-          this.itemImg = response.data.items[0].volumeInfo.imageLinks.thumbnail
+          if (response.data.items[0].volumeInfo.imageLinks.thumbnail) {
+            this.itemImg = response.data.items[0].volumeInfo.imageLinks.thumbnail
+          }
           this.itemAuthors = response.data.items[0].volumeInfo.authors
           this.itemPublisher = response.data.items[0].volumeInfo.publisher
+          this.itemCount = response.data.items[0].volumeInfo.pageCount
         })
       }
       this.message = ''
@@ -187,6 +205,7 @@ export default {
         authors: this.itemAuthors,
         publisher: this.itemPublisher,
         comment: this.itemComment,
+        count: this.itemCount,
         flag: false
       }
       this.books.unshift(saveGroup)
@@ -211,11 +230,16 @@ export default {
       this.saveBook()
       this.$store.commit('Modal/closeModal')
     },
+    readedBooks () {
+      this.readedLength = this.booksLength
+    },
+    readedPages () {
+      this.pageMath = this.pagesCount
+    },
     startScan () {
       this.code = ''
       this.initQuagga()
       this.camera = true
-      console.log(this.camera)
     },
     stopScan () {
       this.Quagga.offProcessed(this.onProcessed)
@@ -266,10 +290,8 @@ export default {
     },
     onInit (err) {
       if (err) {
-        console.log(err)
         return
       }
-      console.info('Initialization finished. Ready to start')
       this.Quagga.start()
     },
     onDetected (success) {
@@ -279,27 +301,6 @@ export default {
         this.Quagga.stop()
         this.camera = false
       }
-      // if (this.calc(this.code)) { alert(this.code) }
-      // 取得時の画像を表示
-      // const $resultImg = document.querySelector('.resultImg')
-      // $resultImg.setAttribute('src', this.Quagga.canvas.dom.image.toDataURL())
-      // this.Quagga.stop()
-    },
-    calc (isbn) {
-      const arrIsbn = isbn
-        .toString()
-        .split('')
-        .map(num => parseInt(num))
-      let remainder = 0
-      const checkDigit = arrIsbn.pop()
-
-      arrIsbn.forEach((num, index) => {
-        remainder += num * (index % 2 === 0 ? 1 : 3)
-      })
-      remainder %= 10
-      remainder = remainder === 0 ? 0 : 10 - remainder
-
-      return checkDigit === remainder
     },
     onProcessed (result) {
       const drawingCtx = this.Quagga.canvas.ctx.overlay
@@ -394,12 +395,13 @@ export default {
             position: absolute;
             left: 0;
             top: var(--top);
+            z-index: 9999;
             width: 100%;
             height: 100%;
             background-color: rgba($dark, 0.7);
             .p-api_box02--search-scan-txt{
               @include fontSet(32,46,100,$tab);
-              padding: 0 1em;
+              padding: 0 1em 1em;
               color: $white;
               font-weight: 700;
             }
@@ -425,15 +427,25 @@ export default {
                 height: 100%;
                 margin: 0;
               }
-              .drawingBuffer{
-                margin-left: -480px;
-              }
+              // .drawingBuffer{
+              //   margin-left: -480px;
+              // }
             }
             .getMessage{
               @include fontSet(32,46,100,$tab);
               padding: 1em;
               color: $white;
               font-weight: 700;
+            }
+            .p-api_box02--search-btn-stop{
+              @include fontSet(32,32,100,$tab);
+              @include dis(inline-block);
+              margin-top: 1em;
+              padding: .5em 1em;
+              background-color: transparent;
+              border: 1px $white solid;
+              color: $white;
+
             }
           }
         }
@@ -448,6 +460,19 @@ export default {
   }
   &_box03{
     padding-bottom: per(100, $tab);
+    .p-api_box03{
+      &--readedcount{
+        @include fontSet(32,52,100, $tab);
+        padding-bottom: 1em;
+        &-books{
+          @include ta(center);
+          span{
+            @include fontSet(42, 42, 100, $tab);
+            font-weight: 700;
+          }
+        }
+      }
+    }
   }
 }
 @include lap() {
@@ -498,38 +523,5 @@ export default {
       }
     }
   }
-}
-
-#cameraArea {
-    width: 300px;
-    height: 300px;
-    overflow: hidden;
-}
-#cameraArea video,
-#cameraArea canvas {
-    margin-top: -50px;
-    width: 300px;
-    height: 400px;
-}
-#cameraArea video.drawingBuffer, #cameraArea canvas{
-margin-left: -300px;
-}
-button {
-  width: 100px;
-  height: 40px;
-  background-color: #fff;
-  border: 1px solid #333;
-  margin-top: 30px;
-}
-.resultImg {
-  width: 100%;
-}
-.resultCode {
-  font-size: 24px;
-  font-weight: bold;
-  text-align: center;
-}
-.getMessage {
-  color: red;
 }
 </style>
