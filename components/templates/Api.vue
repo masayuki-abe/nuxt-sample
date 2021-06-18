@@ -31,8 +31,7 @@
               <p class="p-api_box02--search-scan-txt">
                 「978」から始まるバーコードを映してください。
               </p>
-              <div id="cameraArea">
-              </div>
+              <div id="cameraArea" />
               <p v-if="isbn.length" class="getMessage">
                 「{{ isbn }}」を読み取りました。
               </p>
