@@ -27,6 +27,7 @@
                 color="white"
                 :link-path="modalItem.path"
                 :link-text="modalItem.name"
+                @click.native="$store.commit('Modal/closeModal')"
               />
             </dd>
           </dl>
