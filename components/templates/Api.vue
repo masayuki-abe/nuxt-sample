@@ -32,9 +32,6 @@
                 「978」から始まるバーコードを映してください。
               </p>
               <div id="cameraArea" />
-              <p v-if="isbn.length" class="getMessage">
-                「{{ isbn }}」を読み取りました。
-              </p>
               <button class="p-api_box02--search-btn-stop" aria-label="close" @click.prevent.stop="stopScan">
                 閉じる
               </button>
@@ -62,7 +59,7 @@
       </div>
     </section><!-- /box02 -->
 
-    <section v-if="haveBooks" id="p-api_box03">
+    <section v-if="booksLength > 0" id="p-api_box03">
       <div class="c-box">
         <AtomsTitlesTit
           tit-tag="h3"
@@ -124,7 +121,6 @@ export default {
       itemImg: 'http://books.google.com/books/content?printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
       itemAuthors: [],
       itemPublisher: '',
-      haveBooks: false,
       modalItem: '',
       Quagga: null,
       code: '',
@@ -213,7 +209,6 @@ export default {
       this.items = ''
       this.itemComment = ''
       this.saveBook()
-      this.haveBooks = true
     },
     saveBook () {
       const parsed = JSON.stringify(this.books)
