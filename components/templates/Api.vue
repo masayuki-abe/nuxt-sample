@@ -203,12 +203,11 @@ export default {
         img: this.itemImg,
         authors: this.itemAuthors,
         publisher: this.itemPublisher,
-        comment: this.itemComment,
+        comment: this.itemComment.replace(/\\n/g, '\\n'),
         count: this.itemCount
       }
       this.books.unshift(saveGroup)
       saveGroup = ''
-      console.log(this.items + 'is none.')
       this.isbn = ''
       this.items = ''
       this.itemComment = ''

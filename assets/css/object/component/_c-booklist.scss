@@ -12,6 +12,11 @@
       margin-right: 0;
     }
   }
+  &_thumb{
+    figcaption{
+      @include fontSet(28,36,100,$tab);
+    }
+  }
   &_thumb--modal{
     width: 50%;
     margin: 0 auto per(20, $tab);
@@ -51,7 +56,7 @@
     position: relative;
     margin-top: 1em;
     &-box{
-      padding-top: 1em;
+      white-space: pre-line;
       textarea{
         @include fontSet(32,48,100,$tab);
         opacity: 0;
@@ -65,7 +70,9 @@
         &.is-editing{
           opacity: 1;
           position: relative;
+          margin-top: 1em;
           height: 5em;
+          border: 1px orange dotted;
         }
       }
     }
@@ -78,6 +85,10 @@
   &_btn{
     @include ta(center);
     padding-top: 1em;
+    &-resave{
+      @include ta(right);
+      margin-bottom: 1em;
+    }
   }
 }
 @include lap() {

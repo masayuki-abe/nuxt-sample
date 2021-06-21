@@ -2,7 +2,7 @@
   <div class="c-booklist_wrap">
     <figure class="c-booklist_thumb" @click="openModal">
       <img :src="bookImg">
-      <figcaption>{{ bookTitleCaption }}</figcaption>
+      <figcaption>『{{ bookTitleCaption }}』</figcaption>
     </figure>
     <MoleculesEtcModal
       v-if="isModalState"
@@ -159,7 +159,7 @@ export default {
       this.$emit('delete-btn')
     },
     editComment () {
-      this.editFlag = true
+      this.editFlag = !this.editFlag
       this.$refs.editComment.focus()
     },
     resaveComment () {
