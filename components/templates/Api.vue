@@ -69,14 +69,14 @@
         <div v-if="booksLength > 0" class="p-api_box03--readedcount">
           <p class="p-api_box03--readedcount-books">
             あなたは<br>
-            <span>{{ booksLength }}</span>冊<br>
-            <span>{{ pagesCount }}</span>ページ<br>
-            読みました。
+            <span>{{ booksLength }}</span>冊 / <span>{{ pagesCount }}</span>ページ<br>
+            読みました
           </p>
         </div>
         <ul class="c-booklist">
           <li v-for="(book, index) in books" :key="book.id">
             <MoleculesEtcModalBook
+              v-model="modalItem.comment"
               :book-img="book.img"
               :book-img-modal="modalItem.img"
               :book-link="modalItem.link"
@@ -87,6 +87,7 @@
               :book-comment="modalItem.comment"
               @open-modal="openModal(book, index)"
               @delete-btn="deleteBtn()"
+              @resave-btn="resaveBtn()"
             />
           </li>
         </ul>
@@ -118,9 +119,10 @@ export default {
       itemId: '',
       itemTitle: '',
       itemLink: [],
-      itemImg: 'http://books.google.com/books/content?printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
+      itemImg: '',
       itemAuthors: [],
       itemPublisher: '',
+      itemCount: 0,
       modalItem: '',
       Quagga: null,
       code: '',
@@ -181,8 +183,10 @@ export default {
           this.itemId = response.data.items[0].id
           this.itemLink = response.data.items[0].volumeInfo.previewLink
           this.itemTitle = response.data.items[0].volumeInfo.title
-          if (response.data.items[0].volumeInfo.imageLinks.thumbnail) {
+          if (response.data.items[0].volumeInfo.imageLinks) {
             this.itemImg = response.data.items[0].volumeInfo.imageLinks.thumbnail
+          } else {
+            this.itemImg = 'http://books.google.com/books/content?printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'
           }
           this.itemAuthors = response.data.items[0].volumeInfo.authors
           this.itemPublisher = response.data.items[0].volumeInfo.publisher
@@ -199,9 +203,8 @@ export default {
         img: this.itemImg,
         authors: this.itemAuthors,
         publisher: this.itemPublisher,
-        comment: this.itemComment,
-        count: this.itemCount,
-        flag: false
+        comment: this.itemComment.replace(/\\n/g, '\\n'),
+        count: this.itemCount
       }
       this.books.unshift(saveGroup)
       saveGroup = ''
@@ -223,6 +226,11 @@ export default {
       this.books.splice(this.countArray, 1)
       this.saveBook()
       this.$store.commit('Modal/closeModal')
+    },
+    resaveBtn () {
+      const activeBooks = this.countArray
+      this.books[activeBooks].comment = this.modalItem.comment
+      this.saveBook()
     },
     readedBooks () {
       this.readedLength = this.booksLength
