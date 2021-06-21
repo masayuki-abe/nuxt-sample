@@ -2,7 +2,7 @@
   <div class="c-booklist_wrap">
     <figure class="c-booklist_thumb" @click="openModal">
       <img :src="bookImg">
-      <figcaption>{{ bookTitleCaption }}</figcaption>
+      <figcaption>『{{ bookTitleCaption }}』</figcaption>
     </figure>
     <MoleculesEtcModal
       v-if="isModalState"
@@ -39,9 +39,33 @@
           </ul>
         </dd>
       </dl>
-      <dl v-if="bookComment !== ''" class="c-booklist_comment">
+      <dl class="c-booklist_comment">
         <dt>■コメント</dt>
-        <dd>{{ bookComment }}</dd>
+        <dd class="c-booklist_comment-box">
+          <textarea ref="editComment" v-model="getBookComment" :class="(editFlag === true) ? 'is-editing' : ''" />
+          <template v-if="editFlag === false">
+            {{ bookComment }}
+          </template>
+        </dd>
+        <dd class="c-booklist_comment-edit">
+          <AtomsButtonsTextBtn
+            btn-style="bookEdit"
+            color="white"
+            link-text="再編集"
+            class="c-booklist_btn-edit"
+            @click.native="editComment"
+          />
+        </dd>
+        <dd class="c-booklist_comment-resave">
+          <AtomsButtonsTextBtn
+            v-if="editFlag"
+            btn-style="bookResave"
+            color="white"
+            link-text="再保存する"
+            class="c-booklist_btn-resave"
+            @click.native="resaveComment"
+          />
+        </dd>
       </dl>
       <AtomsButtonsTextBtn
         btn-style="outside"
@@ -95,6 +119,16 @@ export default {
     bookComment: {
       type: String,
       default: ''
+    },
+    countArray: {
+      type: String,
+      default: ''
+    }
+  },
+  data () {
+    return {
+      editFlag: false,
+      editedComment: ''
     }
   },
   head () {
@@ -107,6 +141,14 @@ export default {
   computed: {
     isModalState () {
       return this.$store.state.Modal.modalFlag
+    },
+    getBookComment: {
+      get () {
+        return this.bookComment
+      },
+      set (newComment) {
+        this.$emit('input', newComment)
+      }
     }
   },
   methods: {
@@ -115,6 +157,17 @@ export default {
     },
     deleteBook () {
       this.$emit('delete-btn')
+    },
+    editComment () {
+      this.editFlag = !this.editFlag
+      this.$refs.editComment.focus()
+    },
+    resaveComment () {
+      this.$emit('resave-btn')
+      this.editFlag = false
+      // console.log(this.countArray)
+      // this.editedComment = this.bookComment
+      // console.log(this.editedComment)
     }
   }
 }
