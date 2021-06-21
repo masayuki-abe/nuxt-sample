@@ -28,6 +28,20 @@
     <span>{{ linkText }}<AtomsIconsTrashIcn /></span>
   </p>
   <p
+    v-else-if="btnStyle === 'bookEdit'"
+    class="c-btn_text"
+    :class="['c-btn_text--' + btnStyle, color]"
+  >
+    <span>{{ linkText }}<AtomsIconsEditIcn /></span>
+  </p>
+  <p
+    v-else-if="btnStyle === 'bookResave'"
+    class="c-btn_text"
+    :class="['c-btn_text--' + btnStyle, color]"
+  >
+    <span>{{ linkText }}<AtomsIconsSaveIcn /></span>
+  </p>
+  <p
     v-else
     class="c-btn_text"
     :class="['c-btn_text--' + btnStyle, color]"
