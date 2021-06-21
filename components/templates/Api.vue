@@ -119,7 +119,7 @@ export default {
       itemId: '',
       itemTitle: '',
       itemLink: [],
-      itemImg: 'http://books.google.com/books/content?printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api',
+      itemImg: '',
       itemAuthors: [],
       itemPublisher: '',
       itemCount: 0,
@@ -185,6 +185,8 @@ export default {
           this.itemTitle = response.data.items[0].volumeInfo.title
           if (response.data.items[0].volumeInfo.imageLinks) {
             this.itemImg = response.data.items[0].volumeInfo.imageLinks.thumbnail
+          } else {
+            this.itemImg = 'http://books.google.com/books/content?printsec=frontcover&img=1&zoom=5&edge=curl&source=gbs_api'
           }
           this.itemAuthors = response.data.items[0].volumeInfo.authors
           this.itemPublisher = response.data.items[0].volumeInfo.publisher
@@ -208,7 +210,7 @@ export default {
       saveGroup = ''
       console.log(this.items + 'is none.')
       this.isbn = ''
-      this.items = []
+      this.items = ''
       this.itemComment = ''
       this.saveBook()
     },
